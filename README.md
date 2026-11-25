@@ -1,4 +1,4 @@
-# SHARIF UL ABEDIN — Senior XR Designer & Technical Artist
+# SHARIF UL ABEDIN — XR Designer & Technical Artist
 
 **Unreal Engine 5/4 • Broadcast Virtual Production (GrandMA2 DMX) • Medical AR • Spatial WebGL • 3D Photogrammetry**
 
