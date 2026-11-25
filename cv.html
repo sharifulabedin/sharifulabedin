@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharif Ul Abedin — Printable Curriculum Vitae (A4)</title>
+  <meta name="description" content="Printable 2-page A4 Curriculum Vitae of Sharif Ul Abedin — Senior XR Designer & Technical Artist • Virtual Production." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect x='2' y='2' width='32' height='32' fill='%23FF4D00' stroke='%230D0D0D' stroke-width='3'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-weight='900' font-size='15'%3ESA%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: #E6E0D6;
+      color: #0D0D0D;
+      line-height: 1.44;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen-only Neo-Brutalist Toolbar */
+    .print-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #F4F0EA;
+      border-bottom: 3px solid #0D0D0D;
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #0D0D0D;
+      background: #FFFFFF;
+      border: 2px solid #0D0D0D;
+      box-shadow: 3px 3px 0px #0D0D0D;
+      cursor: pointer;
+    }
+    .toolbar-btn:hover { background: #E5FF00; }
+    .toolbar-btn--primary { background: #FF4D00; color: #FFFFFF; }
+    .toolbar-btn--primary:hover { background: #E04300; color: #FFFFFF; }
+
+    /* A4 Sheet Container */
+    .sheets-wrap {
+      padding: 28px 16px 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .a4-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: #FFFFFF;
+      border: 3px solid #0D0D0D;
+      box-shadow: 8px 8px 0px #0D0D0D;
+      padding: 14mm 15mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* CV Typography */
+    .cv-header {
+      border-bottom: 3px solid #0D0D0D;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .cv-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24pt;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .cv-role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #FF4D00;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+    .cv-contacts {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8pt;
+      text-align: right;
+      line-height: 1.5;
+    }
+    .cv-contacts a { color: #0D0D0D; text-decoration: underline; }
+
+    .cv-sec { margin-bottom: 12px; }
+    .cv-sec-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid #0D0D0D;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cv-sec-title span:last-child {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 7.5pt;
+      color: #5E5952;
+    }
+
+    .cv-p { font-size: 9.3pt; color: #1F1E1C; text-align: justify; }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: 165px 1fr;
+      gap: 4px 10px;
+      font-size: 8.9pt;
+    }
+    .skill-lbl { font-weight: 700; font-family: 'IBM Plex Mono', monospace; font-size: 8.2pt; }
+
+    .job { margin-bottom: 9px; }
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 9.6pt;
+    }
+    .job-role { font-weight: 700; }
+    .job-date { font-family: 'IBM Plex Mono', monospace; font-size: 8.2pt; color: #33302C; font-weight: 600; }
+    .job-org {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8.4pt;
+      color: #FF4D00;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .job-ul {
+      padding-left: 15px;
+      font-size: 8.9pt;
+      color: #1F1E1C;
+    }
+    .job-ul li { margin-bottom: 2.5px; }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      margin-bottom: 5px;
+    }
+    .quote-box {
+      padding: 8px 12px;
+      border-left: 3px solid #FF4D00;
+      background: #FAF8F4;
+      font-size: 8.8pt;
+      font-style: italic;
+    }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      font-size: 8.8pt;
+    }
+    .sheet-foot {
+      border-top: 1px solid #C8C2B8;
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 7.5pt;
+      color: #5E5952;
+    }
+
+    @media (max-width: 860px) {
+      .a4-sheet { width: 100%; min-height: auto; padding: 20px; }
+      .cv-header { flex-direction: column; align-items: flex-start; }
+      .cv-contacts { text-align: left; }
+      .skill-grid { grid-template-columns: 1fr; }
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    @media print {
+      body { background: #FFFFFF; }
+      .print-toolbar { display: none !important; }
+      .sheets-wrap { padding: 0; gap: 0; display: block; }
+      .a4-sheet {
+        width: 210mm;
+        height: 297mm;
+        border: none;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .a4-sheet:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="print-toolbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="/" class="toolbar-btn" id="cv-back-btn">← 3D PORTFOLIO</a>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;font-weight:700;">SHARIF UL ABEDIN // 2-PAGE A4 SPEC CV</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="toolbar-btn" id="cv-pdf-btn">OFFICIAL PDF ↓</a>
+      <button type="button" class="toolbar-btn toolbar-btn--primary" onclick="window.print()" id="cv-print-trigger">PRINT / SAVE A4 PDF ⎙</button>
+    </div>
+  </div>
+
+  <div class="sheets-wrap">
+    <!-- ==================== PAGE 1 OF 2 ==================== -->
+    <section class="a4-sheet" aria-label="Curriculum Vitae Page 1">
+      <div>
+        <header class="cv-header">
+          <div>
+            <h1 class="cv-name">Sharif Ul Abedin</h1>
+            <div class="cv-role">Senior XR Designer &amp; Technical Artist • Virtual Production</div>
+          </div>
+          <div class="cv-contacts">
+            <div>Dhaka, Bangladesh • +880 1717-883891</div>
+            <div><a href="mailto:sharifulabedin@live.com">sharifulabedin@live.com</a></div>
+            <div>
+              <a href="https://linkedin.com/in/sharifulabedin">linkedin.com/in/sharifulabedin</a> •
+              <a href="https://behance.net/sharifulabedin">behance.net/sharifulabedin</a> •
+              <a href="https://sketchfab.com/sharifulabedin">sketchfab.com/sharifulabedin</a>
+            </div>
+          </div>
+        </header>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Professional Summary</span><span>01</span></h2>
+          <p class="cv-p">
+            Senior XR Designer and Technical Artist with over 7 years of hands-on expertise across real-time engines (Unreal Engine 5/4, Unity), medical/educational XR solutions, and broadcast-grade virtual production. Proven track record leading multidisciplinary pipelines from initial R&amp;D and 3D photogrammetry to DMX/MIDI live lighting integration and interactive deployment. Demonstrated success engineering award-recognized healthcare AR applications and delivering high-stakes virtual production sets for premier enterprises including Suzuki, Oppo, bKash, British American Tobacco, and Grameenphone.
+          </p>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Technical Expertise</span><span>02</span></h2>
+          <div class="skill-grid">
+            <div class="skill-lbl">Real-Time &amp; XR:</div>
+            <div>Unreal Engine 5/4 (Blueprints, Nanite, Lumen), Unity (C#), UEFN, WebGL, WebAR, OpenXR, HTC Vive Pro Eye, SteamVR</div>
+            <div class="skill-lbl">Virtual Production:</div>
+            <div>Virtual Studio Sets, GrandMA2 / DMX512 Lighting Control, MIDI Sync, Live Chroma Keying, vMix, LIV, Virtual Camera Tracking</div>
+            <div class="skill-lbl">3D &amp; Photogrammetry:</div>
+            <div>Blender, Autodesk Maya, ZBrush, Aerial &amp; Static Photogrammetry (RealityCapture, Agisoft Metashape), Retopology, Scan Cleanup</div>
+            <div class="skill-lbl">Texturing &amp; Code:</div>
+            <div>Substance 3D Painter, Marmoset Toolbag, V-Ray, KeyShot, Premiere Pro, Photoshop, Illustrator, Python, C++</div>
+          </div>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Professional Experience</span><span>03</span></h2>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">XR Designer</span>
+              <span class="job-date">Feb 2026 – Present</span>
+            </div>
+            <div class="job-org">TulipTech • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li>Lead architectural design and execution of interactive extended reality (XR) initiatives and live 3D WebGL telemetry platforms (<strong>GridSide</strong>) for cross-platform deployments.</li>
+              <li>Establish technical art standards for real-time asset optimization, custom shaders, and strict draw-call budgets to guarantee consistent 60+ FPS performance.</li>
+              <li>Collaborate directly with cross-functional engineering, UX, and 3D art teams to conceptualize and deliver next-generation immersive applications.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">AR/VR Developer [Designer]</span>
+              <span class="job-date">Dec 2024 – Feb 2026</span>
+            </div>
+            <div class="job-org">VirtueCareBD.ai (Concern of Labaid Group) • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li><strong>VirtuED Anatomy Application (Finalist):</strong> Spearheaded technical development and real-time 3D visualization for the VirtuED medical education application, balancing high anatomical fidelity with stringent mobile performance constraints.</li>
+              <li>Collaborated with clinical specialists and surgeons at Labaid Cancer Hospital to translate complex surgical anatomy into intuitive, interactive AR learning modules.</li>
+              <li>Engineered end-to-end digital health solutions across LABAID Group, including an interactive 360° virtual tour for PAWSITIVE Pet Care and clinical demonstration prototypes.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">3D Artist</span>
+              <span class="job-date">Apr 2022 – Nov 2024</span>
+            </div>
+            <div class="job-org">Dreamerz Lab Ltd. • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li>Co-created <strong>Fortnite: Temporal Nexus</strong> (UEFN Island 0777-5488-9071) and engineered game-ready / WebAR 3D assets adhering to strict polygon budgets, draw-call limits, and texture atlas guidelines.</li>
+              <li>Executed high-precision 3D photogrammetry scanning, retopology, cleanup, and PBR texturing for heritage conservation and international commercial campaigns.</li>
+              <li>Constructed physics-driven accident reconstruction simulations in <strong>Unreal Engine 5</strong> and interactive 360° virtual tours using 3DVista and Matterport.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="sheet-foot">
+        <span>SHARIF UL ABEDIN — CURRICULUM VITAE</span>
+        <span>PAGE 1 OF 2</span>
+      </footer>
+    </section>
+
+    <!-- ==================== PAGE 2 OF 2 ==================== -->
+    <section class="a4-sheet" aria-label="Curriculum Vitae Page 2">
+      <div>
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Professional Experience (Continued)</span><span>03.B</span></h2>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">Senior Virtual Production Designer / Developer</span>
+              <span class="job-date">Oct 2020 – Oct 2021</span>
+            </div>
+            <div class="job-org">ECube Entertainment • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li>Designed, modeled, and operated real-time 3D virtual production broadcast sets inside <strong>Unreal Engine 4 (UE4)</strong> for national television and live events.</li>
+              <li>Integrated hardware controllers including <strong>GrandMA2 lighting consoles (DMX)</strong> and MIDI interfaces for synchronized real-time illumination across physical and virtual stages.</li>
+              <li>Authored custom Unreal Engine Blueprints for virtual camera tracking, dynamic parallax correction, and live interactive control of digital environment assets.</li>
+              <li>Delivered customized virtual production solutions for <strong>Suzuki, Oppo, bKash, British American Tobacco (BAT), and Grameenphone</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">AR/VR Developer</span>
+              <span class="job-date">Oct 2019 – Oct 2020</span>
+            </div>
+            <div class="job-org">Dekko Isho Group (ISHO) • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li>Developed interactive promotional Virtual Reality (VR) games and Bangladesh’s premier spatial WebAR furniture configurator, boosting campaign conversions.</li>
+              <li>Constructed optimized architectural visualization (ArchViz) environments in <strong>Unity and Unreal Engine</strong>, achieving photorealistic lighting with steady framerates.</li>
+              <li>Modeled and textured 3D furniture and spatial assets optimized for WebAR and real-time product configurators, accelerating design prototyping cycles.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-head">
+              <span class="job-role">Course Instructor &amp; R&amp;D Specialist</span>
+              <span class="job-date">Mar 2018 – Oct 2019</span>
+            </div>
+            <div class="job-org">American International University-Bangladesh (AIUB) • Dhaka, Bangladesh</div>
+            <ul class="job-ul">
+              <li>Conducted applied R&amp;D across Augmented Reality (AR), Virtual Reality (VR), Mixed Reality (MR), and Virtual Production pipelines.</li>
+              <li>Authored university curricula for immersive technology courses; facilitated hands-on labs training students in industry-standard real-time tools.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Education &amp; Certifications</span><span>04</span></h2>
+          <div class="edu-row">
+            <div><strong>B.Sc. in Computer Science &amp; Engineering (CSE)</strong> — American International University-Bangladesh (AIUB)</div>
+            <div class="job-date">2012 – 2017</div>
+          </div>
+          <div class="edu-row">
+            <div><strong>Higher Secondary Certificate (HSC), Science</strong> — Varendra College, Rajshahi (GPA 3.20)</div>
+            <div class="job-date">2009 – 2012</div>
+          </div>
+          <div class="edu-row" style="margin-bottom:8px;">
+            <div><strong>Secondary School Certificate (SSC), Science</strong> — Rajshahi Govt. Laboratory High School (GPA 4.88 / 5.00)</div>
+            <div class="job-date">Passed 2008</div>
+          </div>
+          <ul class="job-ul">
+            <li><strong>Certificate of Completion: Claude 101</strong> | Anthropic | Issued Jul 2026 | Credential ID: <code>p9ra58xsqihx</code></li>
+            <li><strong>Professional 3D Modeling &amp; Animation (6 Months)</strong> | AIUB Institute of Continuing Education (ICE) | Jun 2016</li>
+          </ul>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Leadership &amp; Affiliations</span><span>05</span></h2>
+          <ul class="job-ul">
+            <li><strong>BASIS Students’ Forum AIUB Chapter:</strong> Senior Executive (Jan 2017 – Oct 2018)</li>
+            <li><strong>Engineering Students’ Association of Bangladesh (ESAB):</strong> Active Member &amp; Executive (Jul 2015 – Mar 2018)</li>
+          </ul>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Executive Endorsement</span><span>06</span></h2>
+          <blockquote class="quote-box">
+            “Sharif’s impact on our company was profound. He led the technical development of the VirtuED anatomy application, where his ability to balance visual fidelity with performance constraints was critical to the product’s success. Furthermore, he demonstrated exceptional technical foresight in developing digital healthcare solutions.”
+            <div style="margin-top:5px;font-style:normal;font-weight:700;">
+              — Sharif Abid, Country Managing Director at HYKR Assure Global (Former Director at VirtueCareBD.ai / Labaid Group)
+            </div>
+          </blockquote>
+        </div>
+
+        <div class="cv-sec">
+          <h2 class="cv-sec-title"><span>Professional References</span><span>07</span></h2>
+          <div class="ref-grid">
+            <div>
+              <strong>MD. Manirul Islam</strong><br />
+              Associate Professor, Department of CSE<br />
+              Director, AIUB Institute of Continuing Education (ICE)
+            </div>
+            <div>
+              <strong>M. M. A. Yeasin</strong><br />
+              Head of Human Resources<br />
+              Dekko Isho Group (ISHO)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="sheet-foot">
+        <span>SHARIF UL ABEDIN — CURRICULUM VITAE</span>
+        <span>PAGE 2 OF 2</span>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>

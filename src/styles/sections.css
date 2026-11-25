@@ -1,0 +1,1218 @@
+/* ==========================================================================
+   PAGE SECTIONS, HEADER, 3D CAD VIEWPORT, ARCHIVE GRID & COMMAND PALETTE
+   ========================================================================== */
+
+/* 1. Sticky Mechanical Top Bar */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  height: var(--header-h);
+  background: var(--bg-canvas);
+  border-bottom: var(--border-heavy);
+  transition: background-color 160ms ease;
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brand-mark__box {
+  width: 38px;
+  height: 38px;
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  border: var(--border-std);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-mark__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-mark__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.brand-mark__sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav__link {
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1.5px solid transparent;
+  transition: background-color 100ms ease, border-color 100ms ease;
+}
+
+.site-nav__link:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+  border-color: var(--border-ink);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmdk-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 10px;
+  background: var(--bg-surface);
+  border: var(--border-std);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cmdk-trigger:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface);
+  border: var(--border-std);
+  box-shadow: var(--shadow-sm);
+}
+
+.mobile-drawer {
+  display: none;
+  background: var(--bg-surface);
+  border-bottom: var(--border-heavy);
+  padding: 16px;
+}
+.mobile-drawer.is-open {
+  display: block;
+}
+.mobile-drawer__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.mobile-drawer__link {
+  padding: 10px 12px;
+  border: var(--border-std);
+  background: var(--bg-canvas);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* 2. Section Spacing & Dividers */
+.page-section {
+  padding-block: clamp(56px, 7vw, 96px);
+  border-bottom: var(--border-heavy);
+}
+
+.page-section--alt {
+  background: var(--bg-elevated);
+}
+
+/* 3. Hero Section + Live Three.js CAD Rig */
+.hero-section {
+  padding-block: clamp(32px, 5vw, 64px);
+  border-bottom: var(--border-heavy);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(24px, 3.2vw, 44px);
+  align-items: stretch;
+}
+
+.hero-dossier {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.hero-docbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  border: var(--border-std);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background: var(--accent-green);
+  border: 1.5px solid var(--border-ink);
+  margin-right: 6px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.2vw, 4.45rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.hero-role-banner {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+  border: 2px solid #0D0D0D;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.15vw, 0.92rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 18px;
+}
+
+.hero-summary {
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  color: var(--ink-secondary);
+  line-height: 1.6;
+  max-width: 60ch;
+}
+.hero-summary strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 4-Cell Ruled Telemetry Spec Matrix */
+.telemetry-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: var(--border-heavy);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.telemetry-cell {
+  padding: 14px 12px;
+  border-right: var(--border-std);
+}
+.telemetry-cell:last-child {
+  border-right: none;
+}
+
+.telemetry-cell__val {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.telemetry-cell__lbl {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Native Three.js CAD Rig Panel */
+.cad-rig {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.cad-rig__topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--bg-muted);
+  border-bottom: var(--border-heavy);
+}
+
+.cad-rig__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cad-model-btn {
+  padding: 5px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--bg-surface);
+  color: var(--ink);
+  border: 1.5px solid var(--border-ink);
+  transition: background-color 90ms ease, transform 80ms ease;
+}
+.cad-model-btn:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+}
+.cad-model-btn.is-active {
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  border-color: var(--border-ink);
+}
+
+.cad-rig__viewport {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 390px;
+  background: #121212;
+  overflow: hidden;
+  cursor: grab;
+}
+.cad-rig__viewport:active {
+  cursor: grabbing;
+}
+
+#hero-webgl-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cad-hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cad-hud__box {
+  padding: 5px 9px;
+  background: rgba(13, 13, 13, 0.88);
+  color: #F4F0EA;
+  border: 1.5px solid #F4F0EA;
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cad-hud__accent {
+  color: #E5FF00;
+}
+
+.cad-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 4px 8px;
+  background: rgba(13, 13, 13, 0.82);
+  color: #D7D2C9;
+  border: 1px solid rgba(244, 240, 234, 0.45);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cad-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 13, 13, 0.76);
+  color: #E5FF00;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 4;
+}
+.cad-loader[hidden] {
+  display: none !important;
+}
+
+.cad-rig__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-surface);
+  border-top: var(--border-heavy);
+}
+
+.cad-shader-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.cad-switch {
+  padding: 5px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--bg-muted);
+  color: var(--ink);
+  border: 1.5px solid var(--border-ink);
+}
+.cad-switch:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+}
+.cad-switch.is-active {
+  background: var(--ink);
+  color: var(--ink-inverse);
+}
+
+/* 4. Engineering Pillars Blueprint Sheet */
+.pillars-sheet {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: var(--border-heavy);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.pillar-box {
+  padding: clamp(22px, 3vw, 34px);
+  border-right: var(--border-std);
+  border-bottom: var(--border-std);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+.pillar-box:nth-child(2n) {
+  border-right: none;
+}
+.pillar-box:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.pillar-box__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pillar-box__idx {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+  border: 1.5px solid #0D0D0D;
+}
+
+.pillar-box__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.pillar-box__body {
+  color: var(--ink-secondary);
+  font-size: 0.96rem;
+  line-height: 1.58;
+}
+
+.pillar-box__stack {
+  padding-top: 12px;
+  border-top: 1.5px dashed var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+/* 5. Sketchfab 11-Model 3D Stage & Catalog */
+.stage-deck {
+  margin-bottom: 36px;
+}
+
+.stage-deck__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-muted);
+  border-bottom: var(--border-heavy);
+}
+
+.stage-deck__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-weight: 800;
+}
+
+.stage-deck__meta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  margin-top: 3px;
+}
+
+.stage-deck__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stage-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #080808;
+}
+
+.stage-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.stage-deck__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 20px;
+  background: var(--bg-surface);
+  border-top: var(--border-std);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-secondary);
+}
+
+.models-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 22px;
+}
+
+.model-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  transition: transform 110ms ease, box-shadow 110ms ease;
+}
+.model-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+.model-card.is-staged {
+  outline: 3px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
+.model-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #0D0D0D;
+  border-bottom: var(--border-std);
+  overflow: hidden;
+}
+
+.model-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+.model-card:hover .model-card__media img {
+  transform: scale(1.03);
+}
+
+.model-card__media iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 2;
+}
+
+.model-card__badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.model-card__body {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.model-card__title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.model-card__desc {
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  line-height: 1.48;
+  margin-bottom: 10px;
+}
+
+.model-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.model-card__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1.5px solid var(--border-subtle);
+}
+
+/* 6. Flagship Works Dossier Grid */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-lg);
+}
+
+.work-card__plate {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #F4F0EA;
+  border-bottom: var(--border-heavy);
+  overflow: hidden;
+}
+
+.work-card__plate img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 260ms ease;
+}
+.work-card:hover .work-card__plate img {
+  transform: scale(1.025);
+}
+
+.work-card__stamps {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.work-card__content {
+  padding: clamp(20px, 2.5vw, 28px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.work-card__org {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.work-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.12;
+  margin-bottom: 6px;
+}
+
+.work-card__subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+
+.work-card__desc {
+  font-size: 0.95rem;
+  color: var(--ink-secondary);
+  line-height: 1.58;
+  margin-bottom: 14px;
+}
+
+.work-card__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.work-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: var(--border-std);
+}
+
+/* 7. Technical Arsenal 4-Column Spec Sheet */
+.arsenal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: var(--border-heavy);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.arsenal-col {
+  border-right: var(--border-std);
+  display: flex;
+  flex-direction: column;
+}
+.arsenal-col:last-child {
+  border-right: none;
+}
+
+.arsenal-col__head {
+  padding: 14px 18px;
+  background: var(--bg-muted);
+  border-bottom: var(--border-std);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.arsenal-list {
+  list-style: none;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arsenal-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.arsenal-bullet {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--accent-orange);
+  border: 1px solid var(--border-ink);
+  flex-shrink: 0;
+  transform: translateY(-1px);
+}
+
+/* 8. Career Chronology Ledger & Endorsement */
+.chronology-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.ledger-list {
+  border: var(--border-heavy);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.ledger-item {
+  padding: clamp(20px, 2.5vw, 28px);
+  border-bottom: var(--border-std);
+}
+.ledger-item:last-child {
+  border-bottom: none;
+}
+
+.ledger-item__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ledger-item__role {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 800;
+}
+
+.ledger-item__period {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-ink);
+}
+
+.ledger-item__org {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  margin-bottom: 12px;
+}
+
+.ledger-item__bullets {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.93rem;
+  color: var(--ink-secondary);
+}
+.ledger-item__bullets strong {
+  color: var(--ink);
+}
+
+.credentials-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.endorsement-box {
+  padding: 26px;
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+  border: 3px solid #0D0D0D;
+  box-shadow: 6px 6px 0px var(--shadow-color);
+}
+
+.endorsement-box__quote {
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 12px 0 18px;
+}
+
+.endorsement-box__author {
+  padding-top: 12px;
+  border-top: 2px solid #0D0D0D;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.cred-box {
+  padding: 22px;
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+}
+
+.cred-box__head {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: var(--border-std);
+}
+
+.cred-entry + .cred-entry {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.cred-entry__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.cred-entry__meta {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+/* 9. Direct Dispatch & Social Index */
+.dispatch-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.channel-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--bg-canvas);
+  border: var(--border-std);
+}
+
+.channel-row__lbl {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
+
+.channel-row__val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.social-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.social-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg-surface);
+  border: var(--border-std);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: transform 90ms ease, box-shadow 90ms ease, background-color 100ms ease;
+}
+.social-tile:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+
+.brief-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.brief-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.brief-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 6px;
+}
+
+/* 10. Site Footer */
+.site-footer {
+  padding-block: 28px;
+  background: var(--bg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* 11. Cmd+K Mechanical Command Palette */
+.cmdk-dialog {
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  box-shadow: 10px 10px 0px var(--accent-yellow);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.cmdk-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: var(--border-heavy);
+  background: var(--bg-canvas);
+}
+
+.cmdk-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.cmdk-input:focus {
+  outline: none;
+}
+
+.cmdk-results {
+  overflow-y: auto;
+  max-height: 380px;
+  list-style: none;
+}
+
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.cmdk-item.is-selected,
+.cmdk-item:hover {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+}
+
+.cmdk-item__cat {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1080px) {
+  .site-nav {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+  .hero-grid,
+  .chronology-layout,
+  .dispatch-grid {
+    grid-template-columns: 1fr;
+  }
+  .arsenal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .arsenal-col:nth-child(2) {
+    border-right: none;
+  }
+  .arsenal-col:nth-child(1),
+  .arsenal-col:nth-child(2) {
+    border-bottom: var(--border-std);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-grid > *,
+  .chronology-layout > *,
+  .dispatch-grid > *,
+  .works-grid > *,
+  .models-grid > * {
+    min-width: 0;
+  }
+  .nb-slab {
+    box-shadow: 4px 4px 0px var(--shadow-color);
+  }
+  .models-grid {
+    grid-template-columns: 1fr;
+  }
+  .telemetry-matrix {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .telemetry-cell:nth-child(2) {
+    border-right: none;
+  }
+  .telemetry-cell:nth-child(1),
+  .telemetry-cell:nth-child(2) {
+    border-bottom: var(--border-std);
+  }
+  .pillars-sheet,
+  .works-grid,
+  .arsenal-grid,
+  .brief-form__row,
+  .social-matrix {
+    grid-template-columns: 1fr;
+  }
+  .pillar-box {
+    border-right: none !important;
+    border-bottom: var(--border-std) !important;
+  }
+  .pillar-box:last-child {
+    border-bottom: none !important;
+  }
+  .arsenal-col {
+    border-right: none !important;
+    border-bottom: var(--border-std) !important;
+  }
+  .arsenal-col:last-child {
+    border-bottom: none !important;
+  }
+  .header-hide-sm {
+    display: none !important;
+  }
+  .cad-rig__viewport {
+    min-height: 320px;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "sharifulabedin-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Industrial Neo-Brutalist CV & Interactive 3D Portfolio of Sharif Ul Abedin — Senior XR Designer & Technical Artist",
+  "author": "Sharif Ul Abedin <sharifulabedin@live.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.3.6"
+  },
+  "dependencies": {
+    "three": "^0.187.0"
+  }
+}

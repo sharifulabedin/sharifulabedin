@@ -1,0 +1,86 @@
+/* ==========================================================================
+   INDUSTRIAL PRINT & SPEC-SHEET NEO-BRUTALIST DESIGN TOKENS
+   Sharif Ul Abedin — Senior XR Designer & Technical Artist
+   ========================================================================== */
+
+:root,
+[data-theme="paper"] {
+  /* Archival Bone Paper Surfaces */
+  --bg-canvas: #F4F0EA;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FAF8F4;
+  --bg-muted: #E6E0D6;
+  --bg-stage: #111111;
+
+  /* Typographic Ink */
+  --ink: #0D0D0D;
+  --ink-secondary: #33302C;
+  --ink-muted: #5E5952;
+  --ink-inverse: #F4F0EA;
+
+  /* High-Voltage Industrial Accents */
+  --accent-orange: #FF4D00;
+  --accent-orange-hover: #E04300;
+  --accent-orange-fg: #FFFFFF;
+
+  --accent-yellow: #E5FF00;
+  --accent-yellow-fg: #0D0D0D;
+
+  --accent-green: #009E52;
+  --accent-green-bg: #DDFCEB;
+  --accent-green-fg: #053B20;
+
+  /* Structural Ruled Borders & Mechanical Offset Shadows */
+  --border-ink: #0D0D0D;
+  --border-subtle: rgba(13, 13, 13, 0.22);
+  --shadow-color: #0D0D0D;
+
+  --border-heavy: 3px solid var(--border-ink);
+  --border-std: 2px solid var(--border-ink);
+  --border-hair: 1px solid var(--border-subtle);
+
+  --shadow-lg: 6px 6px 0px var(--shadow-color);
+  --shadow-md: 4px 4px 0px var(--shadow-color);
+  --shadow-sm: 3px 3px 0px var(--shadow-color);
+
+  /* Typography Families */
+  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Container Rhythm */
+  --container-max: 1320px;
+  --header-h: 68px;
+}
+
+[data-theme="ink"] {
+  /* Raw Asphalt & Graphite Console Surfaces */
+  --bg-canvas: #111111;
+  --bg-surface: #1A1A1A;
+  --bg-elevated: #222222;
+  --bg-muted: #292929;
+  --bg-stage: #080808;
+
+  /* Chalk Ink */
+  --ink: #F4F0EA;
+  --ink-secondary: #D7D2C9;
+  --ink-muted: #9E988E;
+  --ink-inverse: #0D0D0D;
+
+  /* Accents stay razor-sharp */
+  --accent-orange: #FF4D00;
+  --accent-orange-hover: #FF621F;
+  --accent-orange-fg: #FFFFFF;
+
+  --accent-yellow: #E5FF00;
+  --accent-yellow-fg: #0D0D0D;
+
+  --accent-green: #00D26A;
+  --accent-green-bg: #0E2F1E;
+  --accent-green-fg: #6EFFB5;
+
+  /* High-contrast structural rules & hard offset shadows */
+  --border-ink: #F4F0EA;
+  --border-subtle: rgba(244, 240, 234, 0.22);
+  --shadow-color: #FF4D00;
+}
