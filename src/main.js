@@ -250,7 +250,7 @@ function renderDynamicSections(sketchfabLabRef) {
         (s) => `
         <a href="${s.url}" target="_blank" rel="noopener" class="social-tile" id="social-${s.label.toLowerCase().replace(/\s+/g, '-')}">
           <span>${s.label}</span>
-          <span>↗</span>
+          <span class="nb-circle-icon" style="width:28px;height:28px;font-size:0.78rem;">↗</span>
         </a>
       `
       )

@@ -1,16 +1,17 @@
 /* ==========================================================================
-   INDUSTRIAL PRINT & SPEC-SHEET NEO-BRUTALIST DESIGN TOKENS
+   ROUNDED NEO-BRUTALIST DESIGN TOKENS (Inspired by Tactile Pro-Chart UI)
    Sharif Ul Abedin — Senior XR Designer & Technical Artist
    ========================================================================== */
 
 :root,
 [data-theme="paper"] {
-  /* Archival Bone Paper Surfaces */
+  /* Archival Bone & Warm Cream Surfaces */
   --bg-canvas: #F4F0EA;
   --bg-surface: #FFFFFF;
-  --bg-elevated: #FAF8F4;
-  --bg-muted: #E6E0D6;
+  --bg-elevated: #FAF7F0;
+  --bg-muted: #EBE5DA;
   --bg-stage: #111111;
+  --grid-line: rgba(13, 13, 13, 0.055);
 
   /* Typographic Ink */
   --ink: #0D0D0D;
@@ -18,30 +19,44 @@
   --ink-muted: #5E5952;
   --ink-inverse: #F4F0EA;
 
-  /* High-Voltage Industrial Accents */
+  /* Tactile Neo-Brutalist Accents */
   --accent-orange: #FF4D00;
   --accent-orange-hover: #E04300;
   --accent-orange-fg: #FFFFFF;
 
-  --accent-yellow: #E5FF00;
+  --accent-yellow: #FFE44D;
   --accent-yellow-fg: #0D0D0D;
 
+  --accent-mint: #7CE8C6;
+  --accent-mint-fg: #082E22;
+
+  --accent-coral: #FF6B8B;
+  --accent-coral-fg: #0D0D0D;
+
   --accent-green: #009E52;
-  --accent-green-bg: #DDFCEB;
+  --accent-green-bg: #C8F7E3;
   --accent-green-fg: #053B20;
 
-  /* Structural Ruled Borders & Mechanical Offset Shadows */
+  /* Crisp Ink Outlines & Curved Solid Offset Shadows */
   --border-ink: #0D0D0D;
-  --border-subtle: rgba(13, 13, 13, 0.22);
+  --border-subtle: rgba(13, 13, 13, 0.2);
   --shadow-color: #0D0D0D;
 
-  --border-heavy: 3px solid var(--border-ink);
+  --border-heavy: 2.5px solid var(--border-ink);
   --border-std: 2px solid var(--border-ink);
   --border-hair: 1px solid var(--border-subtle);
 
-  --shadow-lg: 6px 6px 0px var(--shadow-color);
-  --shadow-md: 4px 4px 0px var(--shadow-color);
+  --shadow-lg: 6px 7px 0px var(--shadow-color);
+  --shadow-md: 4px 5px 0px var(--shadow-color);
   --shadow-sm: 3px 3px 0px var(--shadow-color);
+
+  /* Rounded Neo-Brutalist Corner Radii */
+  --radius-2xl: 24px;
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
 
   /* Typography Families */
   --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
@@ -50,16 +65,17 @@
 
   /* Container Rhythm */
   --container-max: 1320px;
-  --header-h: 68px;
+  --header-h: 72px;
 }
 
 [data-theme="ink"] {
   /* Raw Asphalt & Graphite Console Surfaces */
   --bg-canvas: #111111;
-  --bg-surface: #1A1A1A;
-  --bg-elevated: #222222;
-  --bg-muted: #292929;
+  --bg-surface: #1B1B1E;
+  --bg-elevated: #222226;
+  --bg-muted: #2B2B30;
   --bg-stage: #080808;
+  --grid-line: rgba(244, 240, 234, 0.05);
 
   /* Chalk Ink */
   --ink: #F4F0EA;
@@ -67,20 +83,26 @@
   --ink-muted: #9E988E;
   --ink-inverse: #0D0D0D;
 
-  /* Accents stay razor-sharp */
+  /* Accents stay bold and high-contrast */
   --accent-orange: #FF4D00;
   --accent-orange-hover: #FF621F;
   --accent-orange-fg: #FFFFFF;
 
-  --accent-yellow: #E5FF00;
+  --accent-yellow: #FFE44D;
   --accent-yellow-fg: #0D0D0D;
 
-  --accent-green: #00D26A;
-  --accent-green-bg: #0E2F1E;
-  --accent-green-fg: #6EFFB5;
+  --accent-mint: #7CE8C6;
+  --accent-mint-fg: #082E22;
 
-  /* High-contrast structural rules & hard offset shadows */
+  --accent-coral: #FF6B8B;
+  --accent-coral-fg: #0D0D0D;
+
+  --accent-green: #00D26A;
+  --accent-green-bg: #113826;
+  --accent-green-fg: #7CE8C6;
+
+  /* High-contrast curved outlines & hard offset shadows */
   --border-ink: #F4F0EA;
-  --border-subtle: rgba(244, 240, 234, 0.22);
+  --border-subtle: rgba(244, 240, 234, 0.2);
   --shadow-color: #FF4D00;
 }

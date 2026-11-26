@@ -1,27 +1,29 @@
 /* ==========================================================================
-   NEO-BRUTALIST MECHANICAL COMPONENTS (SLABS, BUTTONS, TAGS, TABLES, MODALS)
+   ROUNDED NEO-BRUTALIST MECHANICAL COMPONENTS
+   (Soft-Cornered Slabs, Pill Buttons, Capsule Badges, Inputs & Modals)
    ========================================================================== */
 
-/* Mechanical Buttons */
+/* Tactile Pill / Rounded Mechanical Buttons */
 .nb-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   min-height: 44px;
-  padding: 10px 18px;
+  padding: 10px 20px;
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.8125rem;
   line-height: 1.1;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.035em;
   background: var(--bg-surface);
   color: var(--ink);
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-md);
-  transition: transform 90ms cubic-bezier(0.2, 0, 0, 1),
-              box-shadow 90ms cubic-bezier(0.2, 0, 0, 1),
+  transition: transform 95ms cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 95ms cubic-bezier(0.2, 0, 0, 1),
               background-color 120ms ease,
               color 120ms ease;
   user-select: none;
@@ -51,6 +53,11 @@
   color: var(--accent-yellow-fg);
 }
 
+.nb-btn--mint {
+  background: var(--accent-mint);
+  color: var(--accent-mint-fg);
+}
+
 .nb-btn--ink {
   background: var(--ink);
   color: var(--ink-inverse);
@@ -58,12 +65,12 @@
 
 .nb-btn--sm {
   min-height: 36px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 0.75rem;
   box-shadow: var(--shadow-sm);
 }
 .nb-btn--sm:hover {
-  transform: translate(-1px, -1px);
+  transform: translate(-1.5px, -1.5px);
   box-shadow: var(--shadow-md);
 }
 .nb-btn--sm:active {
@@ -71,35 +78,56 @@
   box-shadow: 0px 0px 0px var(--shadow-color) !important;
 }
 
-/* Structural Slabs / Dossier Cards */
+/* Circular Icon Badge (Inspired by circular bordered action glyphs in reference) */
+.nb-circle-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: var(--border-std);
+  background: var(--bg-surface);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+/* Rounded Structural Slabs / Dossier Cards */
 .nb-slab {
   background: var(--bg-surface);
   border: var(--border-heavy);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   position: relative;
+  overflow: hidden;
 }
 
 .nb-slab--interactive {
-  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1),
-              box-shadow 120ms cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 130ms cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 130ms cubic-bezier(0.2, 0, 0, 1);
 }
 .nb-slab--interactive:hover {
   transform: translate(-3px, -3px);
-  box-shadow: 9px 9px 0px var(--shadow-color);
+  box-shadow: 9px 10px 0px var(--shadow-color);
 }
 
-/* Spec Stamps & Technical Labels */
+/* Rounded Capsule Spec Stamps & Technical Labels */
 .spec-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 9px;
+  padding: 4px 11px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.035em;
   border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-pill);
   background: var(--bg-muted);
   color: var(--ink);
 }
@@ -129,7 +157,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 22px;
   margin-bottom: 36px;
   border-bottom: var(--border-heavy);
 }
@@ -147,10 +175,11 @@
 }
 
 .section-head__num {
-  padding: 2px 8px;
+  padding: 3px 10px;
   background: var(--accent-orange);
   color: #FFFFFF;
   border: 2px solid var(--border-ink);
+  border-radius: var(--radius-pill);
 }
 
 .section-head__title {
@@ -169,16 +198,16 @@
   line-height: 1.5;
 }
 
-/* Filter / Rocker Tabs */
+/* Pill Filter / Rocker Tabs */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .filter-tab {
   min-height: 40px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
@@ -187,12 +216,13 @@
   background: var(--bg-surface);
   color: var(--ink);
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
   transition: transform 80ms ease, box-shadow 80ms ease, background-color 100ms ease;
 }
 
 .filter-tab:hover {
-  transform: translate(-1px, -1px);
+  transform: translate(-1.5px, -1.5px);
   box-shadow: var(--shadow-md);
 }
 
@@ -204,20 +234,23 @@
   box-shadow: 1px 1px 0px var(--shadow-color);
 }
 
-/* Mechanical Theme Rocker Switch */
+/* Pill Mechanical Theme Rocker Switch */
 .theme-rocker {
   display: inline-flex;
   align-items: center;
+  padding: 3px;
+  gap: 2px;
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   background: var(--bg-muted);
   box-shadow: var(--shadow-sm);
-  height: 38px;
-  overflow: hidden;
+  height: 40px;
 }
 
 .theme-rocker__opt {
   height: 100%;
-  padding: 0 10px;
+  padding: 0 11px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -225,6 +258,7 @@
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
+  transition: background-color 120ms ease, color 120ms ease;
 }
 
 .theme-rocker__opt.is-active {
@@ -232,15 +266,16 @@
   color: #FFFFFF;
 }
 
-/* Form Controls */
+/* Rounded Form Controls */
 .nb-input,
 .nb-select,
 .nb-textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 12px 15px;
   background: var(--bg-canvas);
   color: var(--ink);
   border: var(--border-std);
+  border-radius: var(--radius-md);
   font-family: var(--font-sans);
   font-size: 0.95rem;
   transition: box-shadow 100ms ease, background-color 100ms ease;
@@ -264,17 +299,18 @@
   margin-bottom: 6px;
 }
 
-/* Toast Notification */
+/* Pill Toast Notification */
 .nb-toast {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 9500;
-  padding: 12px 18px;
+  padding: 12px 22px;
   background: var(--accent-yellow);
   color: #0D0D0D;
-  border: 3px solid #0D0D0D;
-  box-shadow: 5px 5px 0px #0D0D0D;
+  border: 2.5px solid #0D0D0D;
+  border-radius: var(--radius-pill);
+  box-shadow: 5px 6px 0px #0D0D0D;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   font-weight: 700;
@@ -289,7 +325,7 @@
   opacity: 1;
 }
 
-/* Modal Backdrop & Shell */
+/* Rounded Modal Backdrop & Shell */
 .nb-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -309,10 +345,12 @@
   max-width: 1120px;
   background: var(--bg-surface);
   border: var(--border-heavy);
-  box-shadow: 10px 10px 0px var(--accent-orange);
+  border-radius: var(--radius-2xl);
+  box-shadow: 10px 12px 0px var(--accent-orange);
   display: flex;
   flex-direction: column;
   max-height: 92vh;
+  overflow: hidden;
 }
 
 .nb-modal__head {
@@ -320,7 +358,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 20px;
+  padding: 14px 22px;
   background: var(--bg-muted);
   border-bottom: var(--border-heavy);
 }
@@ -338,7 +376,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 20px;
+  padding: 12px 22px;
   background: var(--bg-surface);
   border-top: var(--border-std);
   font-family: var(--font-mono);

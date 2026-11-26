@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PAGE SECTIONS, HEADER, 3D CAD VIEWPORT, ARCHIVE GRID & COMMAND PALETTE
+   ROUNDED NEO-BRUTALIST SECTIONS, 3D CAD VIEWPORT, ARCHIVE CARDS & TIMELINE
    ========================================================================== */
 
 /* 1. Sticky Mechanical Top Bar */
@@ -24,17 +24,18 @@
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   min-width: 0;
 }
 
 .brand-mark__box {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   background: var(--accent-orange);
   color: #FFFFFF;
   border: var(--border-std);
-  box-shadow: 2px 2px 0px var(--shadow-color);
+  border-radius: var(--radius-md);
+  box-shadow: 2.5px 3px 0px var(--shadow-color);
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 0.95rem;
@@ -56,6 +57,7 @@
   font-size: 0.95rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand-mark__sub {
@@ -63,6 +65,7 @@
   font-size: 0.68rem;
   color: var(--ink-muted);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .site-nav {
@@ -72,7 +75,8 @@
 }
 
 .site-nav__link {
-  padding: 6px 10px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 0.76rem;
   font-weight: 700;
@@ -98,24 +102,29 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 38px;
-  padding: 0 10px;
+  height: 40px;
+  padding: 0 13px;
   background: var(--bg-surface);
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
+  transition: transform 80ms ease, box-shadow 80ms ease, background-color 100ms ease;
 }
 .cmdk-trigger:hover {
   background: var(--accent-yellow);
   color: #0D0D0D;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-md);
 }
 
 .mobile-menu-toggle {
   display: none;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   align-items: center;
   justify-content: center;
   background: var(--bg-surface);
@@ -127,6 +136,7 @@
   display: none;
   background: var(--bg-surface);
   border-bottom: var(--border-heavy);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   padding: 16px;
 }
 .mobile-drawer.is-open {
@@ -139,8 +149,9 @@
   margin-bottom: 12px;
 }
 .mobile-drawer__link {
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: var(--border-std);
+  border-radius: var(--radius-md);
   background: var(--bg-canvas);
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -155,7 +166,7 @@
 }
 
 .page-section--alt {
-  background: var(--bg-elevated);
+  background-color: var(--bg-elevated);
 }
 
 /* 3. Hero Section + Live Three.js CAD Rig */
@@ -184,9 +195,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 9px 16px;
   background: var(--bg-surface);
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -196,8 +208,9 @@
 
 .status-dot {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   background: var(--accent-green);
   border: 1.5px solid var(--border-ink);
   margin-right: 6px;
@@ -215,15 +228,17 @@
 
 .hero-role-banner {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 7px 16px;
   background: var(--accent-yellow);
   color: #0D0D0D;
   border: 2px solid #0D0D0D;
+  border-radius: var(--radius-pill);
+  box-shadow: 3px 3px 0px #0D0D0D;
   font-family: var(--font-mono);
-  font-size: clamp(0.78rem, 1.15vw, 0.92rem);
+  font-size: clamp(0.76rem, 1.12vw, 0.9rem);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.025em;
   margin-bottom: 18px;
 }
 
@@ -244,28 +259,40 @@
   gap: 12px;
 }
 
-/* 4-Cell Ruled Telemetry Spec Matrix */
+/* 4-Card Rounded Telemetry Strip (Individual Tactile Mini-Cards like Reference) */
 .telemetry-matrix {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: var(--border-heavy);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-md);
+  gap: 12px;
 }
 
 .telemetry-cell {
-  padding: 14px 12px;
-  border-right: var(--border-std);
+  padding: 15px 14px;
+  background: var(--bg-surface);
+  border: var(--border-std);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 110ms ease, box-shadow 110ms ease;
 }
-.telemetry-cell:last-child {
-  border-right: none;
+.telemetry-cell:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+.telemetry-cell:nth-child(2) {
+  background: var(--accent-mint);
+  color: var(--accent-mint-fg);
+  border-color: #0D0D0D;
+}
+.telemetry-cell:nth-child(2) .telemetry-cell__lbl {
+  color: var(--accent-mint-fg);
+  opacity: 0.85;
 }
 
 .telemetry-cell__val {
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.9vw, 1.65rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.05;
   margin-bottom: 4px;
 }
 
@@ -278,12 +305,13 @@
   letter-spacing: 0.03em;
 }
 
-/* Native Three.js CAD Rig Panel */
+/* Native Three.js Rounded CAD Rig Panel */
 .cad-rig {
   display: flex;
   flex-direction: column;
   background: var(--bg-surface);
   border: var(--border-heavy);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
@@ -294,7 +322,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 10px 12px;
+  padding: 12px 16px;
   background: var(--bg-muted);
   border-bottom: var(--border-heavy);
 }
@@ -306,7 +334,7 @@
 }
 
 .cad-model-btn {
-  padding: 5px 9px;
+  padding: 5px 11px;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
@@ -314,6 +342,7 @@
   background: var(--bg-surface);
   color: var(--ink);
   border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-pill);
   transition: background-color 90ms ease, transform 80ms ease;
 }
 .cad-model-btn:hover {
@@ -331,7 +360,7 @@
   width: 100%;
   flex: 1;
   min-height: 390px;
-  background: #121212;
+  background: #141414;
   overflow: hidden;
   cursor: grab;
 }
@@ -347,9 +376,9 @@
 
 .cad-hud {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
+  top: 12px;
+  left: 12px;
+  right: 12px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -359,10 +388,11 @@
 }
 
 .cad-hud__box {
-  padding: 5px 9px;
+  padding: 5px 12px;
   background: rgba(13, 13, 13, 0.88);
   color: #F4F0EA;
-  border: 1.5px solid #F4F0EA;
+  border: 1.5px solid rgba(244, 240, 234, 0.75);
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 0.69rem;
   font-weight: 600;
@@ -371,17 +401,18 @@
 }
 
 .cad-hud__accent {
-  color: #E5FF00;
+  color: #FFE44D;
 }
 
 .cad-hint {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  padding: 4px 8px;
+  bottom: 12px;
+  left: 12px;
+  padding: 5px 11px;
   background: rgba(13, 13, 13, 0.82);
   color: #D7D2C9;
   border: 1px solid rgba(244, 240, 234, 0.45);
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 0.66rem;
   text-transform: uppercase;
@@ -396,7 +427,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(13, 13, 13, 0.76);
-  color: #E5FF00;
+  color: #FFE44D;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
@@ -413,7 +444,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  padding: 10px 12px;
+  padding: 11px 14px;
   background: var(--bg-surface);
   border-top: var(--border-heavy);
 }
@@ -421,11 +452,11 @@
 .cad-shader-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
 }
 
 .cad-switch {
-  padding: 5px 9px;
+  padding: 5px 11px;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
@@ -433,6 +464,8 @@
   background: var(--bg-muted);
   color: var(--ink);
   border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-pill);
+  transition: background-color 90ms ease, transform 80ms ease;
 }
 .cad-switch:hover {
   background: var(--accent-yellow);
@@ -443,29 +476,28 @@
   color: var(--ink-inverse);
 }
 
-/* 4. Engineering Pillars Blueprint Sheet */
+/* 4. Engineering Pillars — Individual Rounded Neo-Brutalist Cards (Inspired by Reference Bento) */
 .pillars-sheet {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border: var(--border-heavy);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-lg);
+  gap: 22px;
 }
 
 .pillar-box {
-  padding: clamp(22px, 3vw, 34px);
-  border-right: var(--border-std);
-  border-bottom: var(--border-std);
+  padding: clamp(22px, 2.8vw, 32px);
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
+  transition: transform 120ms ease, box-shadow 120ms ease;
 }
-.pillar-box:nth-child(2n) {
-  border-right: none;
-}
-.pillar-box:nth-last-child(-n+2) {
-  border-bottom: none;
+.pillar-box:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 10px 0px var(--shadow-color);
 }
 
 .pillar-box__top {
@@ -473,17 +505,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .pillar-box__idx {
   font-family: var(--font-mono);
   font-size: 0.76rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 11px;
   background: var(--accent-yellow);
   color: #0D0D0D;
   border: 1.5px solid #0D0D0D;
+  border-radius: var(--radius-pill);
 }
 
 .pillar-box__title {
@@ -510,9 +543,10 @@
   text-transform: uppercase;
 }
 
-/* 5. Sketchfab 11-Model 3D Stage & Catalog */
+/* 5. Sketchfab 11-Model 3D Stage & Rounded Card Catalog */
 .stage-deck {
   margin-bottom: 36px;
+  border-radius: var(--radius-2xl);
 }
 
 .stage-deck__head {
@@ -521,7 +555,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px 20px;
+  padding: 16px 22px;
   background: var(--bg-muted);
   border-bottom: var(--border-heavy);
 }
@@ -566,7 +600,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 11px 20px;
+  padding: 12px 22px;
   background: var(--bg-surface);
   border-top: var(--border-std);
   font-family: var(--font-mono);
@@ -586,7 +620,7 @@
 .models-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-  gap: 22px;
+  gap: 24px;
 }
 
 .model-card {
@@ -595,23 +629,26 @@
   justify-content: space-between;
   background: var(--bg-surface);
   border: var(--border-heavy);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
-  transition: transform 110ms ease, box-shadow 110ms ease;
+  overflow: hidden;
+  transition: transform 120ms ease, box-shadow 120ms ease;
 }
 .model-card:hover {
-  transform: translate(-2px, -2px);
+  transform: translate(-3px, -3px);
   box-shadow: var(--shadow-lg);
 }
 .model-card.is-staged {
-  outline: 3px solid var(--accent-orange);
-  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--accent-orange), var(--shadow-lg);
 }
 
 .model-card__media {
   position: relative;
   aspect-ratio: 16 / 10;
+  margin: 12px 12px 0;
+  border-radius: var(--radius-md);
   background: #0D0D0D;
-  border-bottom: var(--border-std);
+  border: var(--border-std);
   overflow: hidden;
 }
 
@@ -684,7 +721,7 @@
   border-top: 1.5px solid var(--border-subtle);
 }
 
-/* 6. Flagship Works Dossier Grid */
+/* 6. Flagship Works Rounded Dossier Cards */
 .works-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -696,14 +733,18 @@
   flex-direction: column;
   background: var(--bg-surface);
   border: var(--border-heavy);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
 .work-card__plate {
   position: relative;
   aspect-ratio: 16 / 9;
+  margin: 14px 14px 0;
+  border-radius: var(--radius-lg);
   background: #F4F0EA;
-  border-bottom: var(--border-heavy);
+  border: var(--border-std);
   overflow: hidden;
 }
 
@@ -719,9 +760,9 @@
 
 .work-card__stamps {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -729,7 +770,7 @@
 }
 
 .work-card__content {
-  padding: clamp(20px, 2.5vw, 28px);
+  padding: clamp(18px, 2.2vw, 24px);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -780,27 +821,32 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   padding-top: 16px;
   border-top: var(--border-std);
 }
 
-/* 7. Technical Arsenal 4-Column Spec Sheet */
+/* 7. Technical Arsenal — 4 Rounded Neo-Brutalist Cards */
 .arsenal-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: var(--border-heavy);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-lg);
+  gap: 20px;
 }
 
 .arsenal-col {
-  border-right: var(--border-std);
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  transition: transform 110ms ease, box-shadow 110ms ease;
 }
-.arsenal-col:last-child {
-  border-right: none;
+.arsenal-col:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .arsenal-col__head {
@@ -812,6 +858,14 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+.arsenal-col:nth-child(1) .arsenal-col__head {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
+}
+.arsenal-col:nth-child(2) .arsenal-col__head {
+  background: var(--accent-mint);
+  color: var(--accent-mint-fg);
 }
 
 .arsenal-list {
@@ -825,22 +879,23 @@
 .arsenal-list li {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 9px;
   font-size: 0.92rem;
   font-weight: 500;
 }
 
 .arsenal-bullet {
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: var(--accent-orange);
-  border: 1px solid var(--border-ink);
+  border: 1.5px solid var(--border-ink);
   flex-shrink: 0;
   transform: translateY(-1px);
 }
 
-/* 8. Career Chronology Ledger & Endorsement */
+/* 8. Career Chronology Rounded Cards & Endorsement */
 .chronology-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
@@ -849,23 +904,28 @@
 }
 
 .ledger-list {
-  border: var(--border-heavy);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .ledger-item {
-  padding: clamp(20px, 2.5vw, 28px);
-  border-bottom: var(--border-std);
+  padding: clamp(20px, 2.5vw, 26px);
+  background: var(--bg-surface);
+  border: var(--border-heavy);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: transform 110ms ease, box-shadow 110ms ease;
 }
-.ledger-item:last-child {
-  border-bottom: none;
+.ledger-item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .ledger-item__top {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 6px;
@@ -879,11 +939,12 @@
 
 .ledger-item__period {
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 11px;
   background: var(--bg-muted);
   border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-pill);
 }
 
 .ledger-item__org {
@@ -909,15 +970,16 @@
 .credentials-stack {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
 }
 
 .endorsement-box {
   padding: 26px;
   background: var(--accent-yellow);
   color: #0D0D0D;
-  border: 3px solid #0D0D0D;
-  box-shadow: 6px 6px 0px var(--shadow-color);
+  border: 2.5px solid #0D0D0D;
+  border-radius: var(--radius-2xl);
+  box-shadow: 6px 7px 0px var(--shadow-color);
 }
 
 .endorsement-box__quote {
@@ -938,6 +1000,7 @@
   padding: 22px;
   background: var(--bg-surface);
   border: var(--border-heavy);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
 }
 
@@ -971,7 +1034,7 @@
   margin-top: 2px;
 }
 
-/* 9. Direct Dispatch & Social Index */
+/* 9. Direct Dispatch & Rounded Social Index */
 .dispatch-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -995,6 +1058,7 @@
   padding: 14px 16px;
   background: var(--bg-canvas);
   border: var(--border-std);
+  border-radius: var(--radius-lg);
 }
 
 .channel-row__lbl {
@@ -1014,7 +1078,7 @@
 .social-matrix {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 22px;
 }
 
@@ -1022,9 +1086,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
+  padding: 10px 14px;
   background: var(--bg-surface);
   border: var(--border-std);
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -1074,23 +1139,25 @@
   gap: 14px;
 }
 
-/* 11. Cmd+K Mechanical Command Palette */
+/* 11. Cmd+K Rounded Mechanical Command Palette */
 .cmdk-dialog {
   width: 100%;
   max-width: 640px;
   background: var(--bg-surface);
   border: var(--border-heavy);
-  box-shadow: 10px 10px 0px var(--accent-yellow);
+  border-radius: var(--radius-2xl);
+  box-shadow: 10px 12px 0px var(--accent-yellow);
   display: flex;
   flex-direction: column;
   max-height: 80vh;
+  overflow: hidden;
 }
 
 .cmdk-input-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 16px;
+  padding: 14px 18px;
   border-bottom: var(--border-heavy);
   background: var(--bg-canvas);
 }
@@ -1119,7 +1186,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 12px 18px;
   border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   font-size: 0.9rem;
@@ -1135,8 +1202,9 @@
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 2px 6px;
-  border: 1px solid currentColor;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid currentColor;
 }
 
 /* Responsive Breakpoints */
@@ -1155,13 +1223,6 @@
   .arsenal-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .arsenal-col:nth-child(2) {
-    border-right: none;
-  }
-  .arsenal-col:nth-child(1),
-  .arsenal-col:nth-child(2) {
-    border-bottom: var(--border-std);
-  }
 }
 
 @media (max-width: 760px) {
@@ -1173,7 +1234,7 @@
     min-width: 0;
   }
   .nb-slab {
-    box-shadow: 4px 4px 0px var(--shadow-color);
+    box-shadow: 4px 5px 0px var(--shadow-color);
   }
   .models-grid {
     grid-template-columns: 1fr;
@@ -1181,33 +1242,12 @@
   .telemetry-matrix {
     grid-template-columns: repeat(2, 1fr);
   }
-  .telemetry-cell:nth-child(2) {
-    border-right: none;
-  }
-  .telemetry-cell:nth-child(1),
-  .telemetry-cell:nth-child(2) {
-    border-bottom: var(--border-std);
-  }
   .pillars-sheet,
   .works-grid,
   .arsenal-grid,
   .brief-form__row,
   .social-matrix {
     grid-template-columns: 1fr;
-  }
-  .pillar-box {
-    border-right: none !important;
-    border-bottom: var(--border-std) !important;
-  }
-  .pillar-box:last-child {
-    border-bottom: none !important;
-  }
-  .arsenal-col {
-    border-right: none !important;
-    border-bottom: var(--border-std) !important;
-  }
-  .arsenal-col:last-child {
-    border-bottom: none !important;
   }
   .header-hide-sm {
     display: none !important;

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BASE RESET, TYPOGRAPHY & ARCHIVAL PAPER TEXTURE
+   BASE RESET, TYPOGRAPHY, ARCHITECTURAL DRAFTING GRID & GRAIN
    ========================================================================== */
 
 *, *::before, *::after {
@@ -20,6 +20,10 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-canvas);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
   color: var(--ink);
   line-height: 1.55;
   overflow-x: hidden;
@@ -28,14 +32,14 @@ body {
   transition: background-color 160ms ease, color 160ms ease;
 }
 
-/* Tactile Archival Paper / Raw Surface Grain (Non-Textureless Craft) */
+/* Tactile Archival Paper / Raw Surface Grain */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.038;
+  opacity: 0.032;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -44,7 +48,7 @@ body::before {
   color: #0D0D0D;
 }
 
-/* Custom Industrial Scrollbar */
+/* Custom Rounded Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -56,6 +60,7 @@ body::before {
 ::-webkit-scrollbar-thumb {
   background: var(--ink);
   border: 2px solid var(--bg-canvas);
+  border-radius: var(--radius-pill);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-orange);
@@ -81,7 +86,6 @@ button, input, select, textarea {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-  border-radius: 0;
 }
 
 button {
@@ -96,13 +100,14 @@ button {
   top: -100px;
   left: 16px;
   z-index: 10000;
-  padding: 10px 16px;
+  padding: 10px 18px;
   background: var(--accent-yellow);
   color: #0D0D0D;
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.85rem;
-  border: 3px solid #0D0D0D;
+  border: 2.5px solid #0D0D0D;
+  border-radius: var(--radius-pill);
   box-shadow: 4px 4px 0px #0D0D0D;
   transition: top 120ms ease;
 }
