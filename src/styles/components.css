@@ -22,30 +22,35 @@
   border: var(--border-std);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-md);
-  transition: transform 95ms cubic-bezier(0.2, 0, 0, 1),
-              box-shadow 95ms cubic-bezier(0.2, 0, 0, 1),
-              background-color 120ms ease,
-              color 120ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
   user-select: none;
   white-space: nowrap;
 }
 
-.nb-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+  .nb-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .nb-btn:active {
-  transform: translate(4px, 4px) !important;
+  transform: translate(3px, 3px) scale(0.98) !important;
   box-shadow: 0px 0px 0px var(--shadow-color) !important;
+  transition-duration: var(--dur-instant);
 }
 
 .nb-btn--primary {
   background: var(--accent-orange);
   color: var(--accent-orange-fg);
 }
-.nb-btn--primary:hover {
-  background: var(--accent-orange-hover);
+@media (hover: hover) and (pointer: fine) {
+  .nb-btn--primary:hover {
+    background: var(--accent-orange-hover);
+  }
 }
 
 .nb-btn--yellow {
@@ -69,13 +74,30 @@
   font-size: 0.75rem;
   box-shadow: var(--shadow-sm);
 }
-.nb-btn--sm:hover {
-  transform: translate(-1.5px, -1.5px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .nb-btn--sm:hover {
+    transform: translate(-1.5px, -1.5px);
+    box-shadow: var(--shadow-md);
+  }
 }
 .nb-btn--sm:active {
-  transform: translate(3px, 3px) !important;
+  transform: translate(2.5px, 2.5px) scale(0.97) !important;
   box-shadow: 0px 0px 0px var(--shadow-color) !important;
+  transition-duration: var(--dur-instant);
+}
+
+/* In-Button Confirmation State (e.g. Copy Email -> Copied) */
+@keyframes mi-btn-pop {
+  0% { transform: scale(0.95); }
+  55% { transform: translate(-1.5px, -1.5px) scale(1.04); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.nb-btn.is-success {
+  background: var(--accent-mint) !important;
+  color: var(--accent-mint-fg) !important;
+  border-color: #0D0D0D !important;
+  animation: mi-btn-pop var(--dur-normal) var(--ease-spring);
 }
 
 /* Circular Icon Badge (Inspired by circular bordered action glyphs in reference) */
@@ -93,7 +115,9 @@
   font-size: 0.85rem;
   font-weight: 700;
   flex-shrink: 0;
-  transition: transform 120ms ease, background-color 120ms ease;
+  transition: transform var(--dur-normal) var(--ease-spring),
+              background-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
 }
 
 /* Rounded Structural Slabs / Dossier Cards */
@@ -107,12 +131,19 @@
 }
 
 .nb-slab--interactive {
-  transition: transform 130ms cubic-bezier(0.2, 0, 0, 1),
-              box-shadow 130ms cubic-bezier(0.2, 0, 0, 1);
+  transition: transform var(--dur-normal) var(--ease-out-quart),
+              box-shadow var(--dur-normal) var(--ease-out-quart);
 }
-.nb-slab--interactive:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 9px 10px 0px var(--shadow-color);
+@media (hover: hover) and (pointer: fine) {
+  .nb-slab--interactive:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 10px 0px var(--shadow-color);
+  }
+}
+@media (pointer: coarse) {
+  .nb-slab--interactive:active {
+    transform: scale(0.99);
+  }
 }
 
 /* Rounded Capsule Spec Stamps & Technical Labels */
@@ -206,7 +237,7 @@
 }
 
 .filter-tab {
-  min-height: 40px;
+  min-height: 44px;
   padding: 8px 16px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -218,12 +249,20 @@
   border: var(--border-std);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
-  transition: transform 80ms ease, box-shadow 80ms ease, background-color 100ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard);
 }
 
-.filter-tab:hover {
-  transform: translate(-1.5px, -1.5px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .filter-tab:hover {
+    transform: translate(-1.5px, -1.5px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.filter-tab:active {
+  transform: translate(2px, 2px) scale(0.98);
 }
 
 .filter-tab.is-active {
@@ -234,39 +273,75 @@
   box-shadow: 1px 1px 0px var(--shadow-color);
 }
 
-/* Pill Mechanical Theme Rocker Switch */
+/* Pill Mechanical Theme Rocker Switch with Sliding Spring Thumb */
 .theme-rocker {
-  display: inline-flex;
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   padding: 3px;
-  gap: 2px;
   border: var(--border-std);
   border-radius: var(--radius-pill);
   background: var(--bg-muted);
   box-shadow: var(--shadow-sm);
   height: 40px;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-rocker:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.theme-rocker:active {
+  transform: translate(1.5px, 1.5px) scale(0.97);
+}
+
+.theme-rocker::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-pill);
+  background: var(--accent-orange);
+  transform: translateX(0%);
+  transition: transform var(--dur-normal) var(--ease-spring);
+  z-index: 0;
+}
+
+[data-theme="ink"] .theme-rocker::before {
+  transform: translateX(100%);
 }
 
 .theme-rocker__opt {
+  position: relative;
+  z-index: 1;
   height: 100%;
+  min-width: 54px;
   padding: 0 11px;
   border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition: color var(--dur-fast) var(--ease-standard);
 }
 
 .theme-rocker__opt.is-active {
-  background: var(--accent-orange);
   color: #FFFFFF;
 }
 
-/* Rounded Form Controls */
+/* Rounded Form Controls + Tactile Blur Validation */
 .nb-input,
 .nb-select,
 .nb-textarea {
@@ -278,7 +353,10 @@
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  transition: box-shadow 100ms ease, background-color 100ms ease;
+  transition: box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
 }
 
 .nb-input:focus,
@@ -287,6 +365,45 @@
   outline: none;
   background: var(--bg-surface);
   box-shadow: 4px 4px 0px var(--accent-orange);
+}
+
+@keyframes mi-field-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+.nb-input.is-valid,
+.nb-textarea.is-valid {
+  border-color: var(--accent-green);
+}
+
+.nb-input.is-invalid,
+.nb-textarea.is-invalid {
+  border-color: #E52E2E;
+  box-shadow: 3px 3px 0px #E52E2E;
+  animation: mi-field-shake 360ms var(--ease-standard);
+}
+
+.nb-field-error {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #E52E2E;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--dur-fast) var(--ease-enter),
+              transform var(--dur-fast) var(--ease-enter);
+}
+[data-theme="ink"] .nb-field-error {
+  color: #FF7878;
+}
+.nb-field-error.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .nb-label {
@@ -299,7 +416,7 @@
   margin-bottom: 6px;
 }
 
-/* Pill Toast Notification */
+/* Pill Toast Notification (Spring Enter, Snappy 68% Exit, Click-to-Dismiss) */
 .nb-toast {
   position: fixed;
   bottom: 24px;
@@ -315,17 +432,22 @@
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
-  transform: translateY(140%);
+  transform: translateY(120%) scale(0.95);
   opacity: 0;
-  transition: transform 180ms cubic-bezier(0.2, 0, 0, 1), opacity 180ms ease;
+  transition: transform var(--dur-exit) var(--ease-exit),
+              opacity var(--dur-exit) var(--ease-exit);
   pointer-events: none;
+  cursor: pointer;
 }
 .nb-toast.is-visible {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   opacity: 1;
+  pointer-events: auto;
+  transition: transform var(--dur-slow) var(--ease-spring),
+              opacity var(--dur-fast) var(--ease-enter);
 }
 
-/* Rounded Modal Backdrop & Shell */
+/* Rounded Modal Backdrop & Shell (Animated Scrim + Spring Scale Enter / Fast Exit) */
 .nb-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -335,9 +457,15 @@
   align-items: center;
   justify-content: center;
   padding: clamp(12px, 3vw, 32px);
+  opacity: 0;
+  transition: opacity var(--dur-exit) var(--ease-exit);
 }
 .nb-modal-backdrop[hidden] {
   display: none !important;
+}
+.nb-modal-backdrop.is-open {
+  opacity: 1;
+  transition: opacity var(--dur-fast) var(--ease-enter);
 }
 
 .nb-modal {
@@ -351,6 +479,16 @@
   flex-direction: column;
   max-height: 92vh;
   overflow: hidden;
+  transform: translateY(8px) scale(0.96);
+  opacity: 0;
+  transition: transform var(--dur-exit) var(--ease-exit),
+              opacity var(--dur-exit) var(--ease-exit);
+}
+.nb-modal-backdrop.is-open .nb-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  transition: transform var(--dur-normal) var(--ease-spring),
+              opacity var(--dur-fast) var(--ease-enter);
 }
 
 .nb-modal__head {

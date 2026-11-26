@@ -145,14 +145,28 @@ button {
   border: 0;
 }
 
+a, button, summary, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 0.01ms;
+    --dur-fast: 0.01ms;
+    --dur-normal: 0.01ms;
+    --dur-exit: 0.01ms;
+    --dur-slow: 0.01ms;
+    --dur-reveal: 0.01ms;
+    --stagger-fast: 0ms;
+    --stagger-normal: 0ms;
+  }
   html {
     scroll-behavior: auto !important;
   }
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

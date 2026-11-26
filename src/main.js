@@ -12,6 +12,7 @@ import { FLAGSHIP_WORKS } from './data/projects.js';
 import { initSketchfabLab } from './components/sketchfabLab.js';
 import { initContactDispatch } from './components/contactDispatch.js';
 import { initCommandPalette } from './components/commandPalette.js';
+import { initPortfolioMicroInteractions } from './components/microInteractions.js';
 
 function showToast(message) {
   const toast = document.getElementById('nb-toast');
@@ -276,29 +277,30 @@ function initMobileDrawer() {
   });
 }
 
+function initHeroPortrait() {
+  const namePillEl = document.getElementById('hero-name-pill-text');
+  if (namePillEl && PROFILE.shortName) {
+    namePillEl.textContent = PROFILE.shortName;
+  }
+
+  const photoEl = document.getElementById('hero-portrait-photo');
+  if (photoEl && PROFILE.portraitUrl && photoEl.getAttribute('href') !== PROFILE.portraitUrl) {
+    photoEl.setAttribute('href', PROFILE.portraitUrl);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const sketchfabLabRef = { current: null };
-  const cadStageProxy = {
-    _inst: null,
-    loadCadModel(id) {
-      this._inst?.loadCadModel(id);
-    },
-    toggleWireframe() {
-      this._inst?.toggleWireframe();
-    },
-  };
 
   const { toggleTheme } = initThemeRocker();
   renderDynamicSections(sketchfabLabRef);
   initMobileDrawer();
+  initHeroPortrait();
 
   const sketchfabLab = initSketchfabLab();
   sketchfabLabRef.current = sketchfabLab;
 
   const { copyEmail } = initContactDispatch(showToast);
-  initCommandPalette({ cadStage: cadStageProxy, sketchfabLab, toggleTheme, copyEmail });
-
-  import('./three/heroStage.js').then(({ initHeroCadStage }) => {
-    cadStageProxy._inst = initHeroCadStage();
-  });
+  initCommandPalette({ sketchfabLab, toggleTheme, copyEmail });
+  initPortfolioMicroInteractions(showToast);
 });

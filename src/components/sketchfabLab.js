@@ -3,6 +3,7 @@
    ========================================================================== */
 
 import { SKETCHFAB_MODELS } from '../data/models.js';
+import { openAnimatedDialog, closeAnimatedDialog } from './microInteractions.js';
 
 function buildEmbedUrl(uid, autostart = 1) {
   return `https://sketchfab.com/models/${uid}/embed?autostart=${autostart}&ui_theme=dark&dnt=1&ui_inspector=1&ui_ar=1&ui_vr=1&ui_settings=1&ui_watermark=1`;
@@ -12,6 +13,7 @@ export function initSketchfabLab() {
   const stageTitleEl = document.getElementById('skf-stage-title');
   const stageMetaEl = document.getElementById('skf-stage-meta');
   const stageIframe = document.getElementById('skf-stage-iframe');
+  const stageLoaderEl = document.getElementById('skf-stage-loader');
   const stageExternalLink = document.getElementById('skf-stage-link');
   const stageResetBtn = document.getElementById('skf-stage-reset');
   const stageFullscreenBtn = document.getElementById('skf-stage-fullscreen');
@@ -31,11 +33,16 @@ export function initSketchfabLab() {
   let currentModel = SKETCHFAB_MODELS[0];
   let currentFilter = 'all';
 
+  stageIframe.addEventListener('load', () => {
+    stageLoaderEl?.classList.add('is-loaded');
+  });
+
   function updateStageDisplay(model, autostart = 1) {
     currentModel = model;
     stageTitleEl.textContent = `${model.code} // ${model.title}`;
     stageMetaEl.textContent = `${model.faces} FACES • ${model.verts} VERTICES • ${model.tags.join(' / ')}`;
     stageExternalLink.href = model.sketchfabUrl;
+    stageLoaderEl?.classList.remove('is-loaded');
     stageIframe.src = buildEmbedUrl(model.uid, autostart);
 
     gridEl.querySelectorAll('.model-card').forEach((card) => {
@@ -43,7 +50,7 @@ export function initSketchfabLab() {
     });
   }
 
-  function renderGrid(filter = 'all') {
+  function renderGrid(filter = 'all', animateFilter = false) {
     currentFilter = filter;
     const list =
       filter === 'all'
@@ -51,10 +58,12 @@ export function initSketchfabLab() {
         : SKETCHFAB_MODELS.filter((m) => m.category === filter);
 
     gridEl.innerHTML = list
-      .map((model) => {
+      .map((model, idx) => {
         const isStaged = model.uid === currentModel.uid;
+        const filterClass = animateFilter ? 'mi-filter-in' : '';
+        const delayStyle = animateFilter ? `style="--stagger-delay:${Math.min(idx * 32, 220)}ms;"` : '';
         return `
-          <article class="model-card ${isStaged ? 'is-staged' : ''}" data-uid="${model.uid}">
+          <article class="model-card ${isStaged ? 'is-staged' : ''} ${filterClass}" data-uid="${model.uid}" ${delayStyle}>
             <div class="model-card__media" id="card-media-${model.uid}">
               <img
                 src="${model.thumb}"
@@ -101,9 +110,10 @@ export function initSketchfabLab() {
   // Filter buttons
   filterTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
+      if (tab.dataset.skfFilter === currentFilter) return;
       filterTabs.forEach((t) => t.classList.remove('is-active'));
       tab.classList.add('is-active');
-      renderGrid(tab.dataset.skfFilter);
+      renderGrid(tab.dataset.skfFilter, true);
     });
   });
 
@@ -157,15 +167,14 @@ export function initSketchfabLab() {
         allowfullscreen
       ></iframe>
     `;
-    modalBackdrop.hidden = false;
-    document.body.style.overflow = 'hidden';
+    openAnimatedDialog(modalBackdrop, modalCloseBtn);
   }
 
   function closeModal() {
     if (!modalBackdrop || !modalBody) return;
-    modalBackdrop.hidden = true;
-    modalBody.innerHTML = '';
-    document.body.style.overflow = '';
+    closeAnimatedDialog(modalBackdrop, () => {
+      modalBody.innerHTML = '';
+    });
   }
 
   stageFullscreenBtn?.addEventListener('click', () => {
@@ -189,7 +198,7 @@ export function initSketchfabLab() {
   });
 
   // Initial mount (autostart=0 so initial page load stays featherlight & non-intrusive)
-  renderGrid('all');
+  renderGrid('all', false);
   updateStageDisplay(SKETCHFAB_MODELS[0], 0);
 
   return {

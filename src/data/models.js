@@ -1,45 +1,6 @@
 /* ==========================================================================
-   3D MODELS DATA: LOCAL WEBGL CAD ASSETS + 11 VERIFIED SKETCHFAB MODELS
+   3D MODELS DATA: 11 VERIFIED SKETCHFAB PRODUCTION MODELS
    ========================================================================== */
-
-export const LOCAL_CAD_MODELS = [
-  {
-    id: 'xreal-frame',
-    code: '01.XREAL_AR',
-    title: 'XREAL One Spatial Frame',
-    subtitle: 'CAD Hardware Mesh • Anodized Spatial Rig',
-    url: '/models/xreal-one-frame.glb',
-    pipeline: 'CAD Re-Mesh • Blender • glTF 2.0',
-    cameraPos: [1.85, 1.15, 2.15],
-  },
-  {
-    id: 'isho-sofa',
-    code: '02.ISHO_SOFA',
-    title: 'ISHO Spatial Round Sofa',
-    subtitle: 'WebAR Furniture Configurator Asset',
-    url: '/models/isho-round-sofa.glb',
-    pipeline: 'Blender • Substance 3D • WebAR <15K Tris',
-    cameraPos: [1.95, 1.35, 2.1],
-  },
-  {
-    id: 'base-rig',
-    code: '03.HUMANOID_RIG',
-    title: 'Mixamo Humanoid Base Mesh',
-    subtitle: 'Real-Time Character Topology & Skeleton',
-    url: '/models/base-rig.glb',
-    pipeline: 'Blender glTF 2.0 • Rigged Skeleton',
-    cameraPos: [1.55, 1.45, 2.35],
-  },
-  {
-    id: 'vp-stage-gizmo',
-    code: '04.VP_DMX_STAGE',
-    title: 'VP Broadcast LED + DMX Rig',
-    subtitle: 'Procedural UE5 Virtual Production Schematic',
-    url: null, // Procedural interactive virtual studio rig
-    pipeline: 'Unreal Engine 5 • GrandMA2 DMX • Frustum',
-    cameraPos: [2.25, 1.55, 2.45],
-  },
-];
 
 export const SKETCHFAB_MODELS = [
   {

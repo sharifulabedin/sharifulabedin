@@ -14,7 +14,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sharifulabedin.vercel.app/" />
   <meta property="og:title" content="Sharif Ul Abedin — Senior XR Designer &amp; Technical Artist" />
-  <meta property="og:description" content="7+ years across Unreal Engine 5, Broadcast Virtual Production (GrandMA2 DMX), Medical AR, Spatial WebGL &amp; 3D Photogrammetry. Explore 14+ interactive 3D models." />
+  <meta property="og:description" content="7+ years across Unreal Engine 5, Broadcast Virtual Production (GrandMA2 DMX), Medical AR, Spatial WebGL &amp; 3D Photogrammetry. Explore 11+ interactive 3D scans." />
   <meta property="og:image" content="https://sharifulabedin.vercel.app/images/og-cover.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Sharif Ul Abedin — XR &amp; Virtual Production Portfolio" />
@@ -110,25 +110,27 @@
 
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-drawer" id="mobile-drawer">
-      <div class="mobile-drawer__nav">
-        <a href="#pillars" class="mobile-drawer__link">01 // PILLARS</a>
-        <a href="#stage" class="mobile-drawer__link">02 // 3D ARCHIVE</a>
-        <a href="#works" class="mobile-drawer__link">03 // WORKS</a>
-        <a href="#arsenal" class="mobile-drawer__link">04 // ARSENAL</a>
-        <a href="#chronology" class="mobile-drawer__link">05 // TIMELINE</a>
-        <a href="#dispatch" class="mobile-drawer__link">06 // DISPATCH</a>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button type="button" class="nb-btn nb-btn--sm nb-btn--yellow" data-open-cmdk style="flex:1;">⌘K COMMANDS</button>
-        <a href="/cv" target="_blank" rel="noopener" class="nb-btn nb-btn--sm" style="flex:1;">A4 PRINT CV</a>
-        <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="nb-btn nb-btn--sm nb-btn--primary" style="flex:1;">CV.PDF ↓</a>
+      <div class="mobile-drawer__inner">
+        <div class="mobile-drawer__nav">
+          <a href="#pillars" class="mobile-drawer__link">01 // PILLARS</a>
+          <a href="#stage" class="mobile-drawer__link">02 // 3D ARCHIVE</a>
+          <a href="#works" class="mobile-drawer__link">03 // WORKS</a>
+          <a href="#arsenal" class="mobile-drawer__link">04 // ARSENAL</a>
+          <a href="#chronology" class="mobile-drawer__link">05 // TIMELINE</a>
+          <a href="#dispatch" class="mobile-drawer__link">06 // DISPATCH</a>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="nb-btn nb-btn--sm nb-btn--yellow" data-open-cmdk style="flex:1;">⌘K COMMANDS</button>
+          <a href="/cv" target="_blank" rel="noopener" class="nb-btn nb-btn--sm" style="flex:1;">A4 PRINT CV</a>
+          <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="nb-btn nb-btn--sm nb-btn--primary" style="flex:1;">CV.PDF ↓</a>
+        </div>
       </div>
     </div>
   </header>
 
   <main id="main-content">
     <!-- ===================================================================
-         SECTION 00: TECHNICAL SPEC HERO + LIVE THREE.JS CAD VIEWPORT
+         SECTION 00: TECHNICAL SPEC HERO + NEO-BRUTALIST PORTRAIT CREST
          =================================================================== -->
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
@@ -167,38 +169,183 @@
           <div class="telemetry-matrix" id="hero-telemetry-matrix" aria-label="Key Career Metrics"></div>
         </div>
 
-        <!-- Right Column: Native Three.js Interactive WebGL CAD Viewport -->
-        <div class="cad-rig" aria-label="Interactive Three.js 3D CAD Viewport">
-          <div class="cad-rig__topbar">
-            <div class="cad-rig__tabs" id="cad-model-tabs" role="tablist" aria-label="Local 3D Assets"></div>
-            <span class="spec-tag spec-tag--green">LIVE WEBGL</span>
-          </div>
-
-          <div class="cad-rig__viewport" id="cad-viewport">
-            <div class="cad-hud">
-              <div class="cad-hud__box" id="cad-hud-title">MOUNTING...</div>
-              <div class="cad-hud__box" id="cad-hud-stats">TRIS: -- • VERTS: --</div>
+        <!-- Right Column: Neo-Brutalist Portrait Shield Crest & Floating Stickers
+             Drop a transparent PNG cut-out at /public/images/profile-cutout.png to auto-replace placeholder -->
+        <div class="hero-portrait" id="hero-portrait-stage" aria-label="Sharif Ul Abedin Profile Crest">
+          <div class="hero-portrait__frame">
+            <!-- 1. Floating Name Pill + Pointer Cursor -->
+            <div class="portrait-name-wrap" id="hero-tag-name">
+              <svg class="portrait-name-cursor" width="32" height="32" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M9 30L13.5 8.5L30.5 17.5L20.5 21L9 30Z" fill="#141414" transform="translate(2, 2.5)" />
+                <path d="M9 30L13.5 8.5L30.5 17.5L20.5 21L9 30Z" fill="#8EA8FF" stroke="#0D0D0D" stroke-width="2.6" stroke-linejoin="round" />
+              </svg>
+              <span class="portrait-name-pill" id="hero-name-pill-text">Sharif</span>
             </div>
 
-            <canvas id="hero-webgl-canvas" aria-label="Interactive 3D Model Canvas"></canvas>
+            <!-- 2. Top-Left Callout Sticker: VR Headset / Spatial XR -->
+            <button
+              type="button"
+              class="portrait-sticker portrait-sticker--xr"
+              id="hero-sticker-xr"
+              data-sticker-target="#works"
+              data-sticker-label="SPATIAL XR & MEDICAL AR DOSSIERS"
+              aria-label="Inspect Spatial XR and Medical AR Dossiers"
+              title="Spatial XR &amp; Medical AR Architecture — Click to view works"
+            >
+              <svg viewBox="0 0 64 58" fill="none" aria-hidden="true">
+                <!-- Speech callout inner frame -->
+                <path d="M7 12C7 8.686 9.686 6 13 6H51C54.314 6 57 8.686 57 12V37C57 40.314 54.314 43 51 43H45L51 52L35 43H13C9.686 43 7 40.314 7 37V12Z" stroke="#0D0D0D" stroke-width="2.7" stroke-linejoin="round" />
+                <!-- VR / XR Spatial Visor inside frame -->
+                <rect x="14" y="15.5" width="36" height="17" rx="6.5" fill="#7CE8C6" stroke="#0D0D0D" stroke-width="2.5" />
+                <path d="M29 32.5L32 28.5L35 32.5" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="23.5" cy="24" r="3.6" fill="#0D0D0D" />
+                <circle cx="40.5" cy="24" r="3.6" fill="#0D0D0D" />
+                <path d="M20 11.5H25M39 11.5H44" stroke="#0D0D0D" stroke-width="2.3" stroke-linecap="round" />
+              </svg>
+            </button>
 
-            <div class="cad-hint">LEFT DRAG: ORBIT • RIGHT DRAG: PAN • SCROLL: ZOOM</div>
-            <div class="cad-loader" id="cad-loader">INITIALIZING WEBGL CAD RIG...</div>
-          </div>
+            <!-- 3. Upper-Right Sticker: Unreal Engine / Real-Time Controller -->
+            <button
+              type="button"
+              class="portrait-sticker portrait-sticker--engine"
+              id="hero-sticker-engine"
+              data-sticker-target="#arsenal"
+              data-sticker-label="UNREAL ENGINE 5 & REAL-TIME ARSENAL"
+              aria-label="Inspect Unreal Engine 5 and Real-Time Technical Arsenal"
+              title="Unreal Engine 5 &amp; Real-Time Systems — Click to view arsenal"
+            >
+              <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <path d="M9.5 16.5C9.5 13.186 12.186 10.5 15.5 10.5H28.5C31.814 10.5 34.5 13.186 34.5 16.5L36.8 28.5C37.4 31.7 35 34.5 31.7 34.5C30 34.5 28.4 33.7 27.5 32.3L25.3 29.2H18.7L16.5 32.3C15.6 33.7 14 34.5 12.3 34.5C9 34.5 6.6 31.7 7.2 28.5L9.5 16.5Z" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="2.6" stroke-linejoin="round" />
+                <path d="M16.5 18.5V23.5M14 21H19" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" />
+                <circle cx="27.5" cy="19.2" r="1.8" fill="#0D0D0D" />
+                <circle cx="30.5" cy="22.4" r="1.8" fill="#0D0D0D" />
+              </svg>
+            </button>
 
-          <div class="cad-rig__controls">
-            <div class="cad-shader-group" role="group" aria-label="3D Shader Modes">
-              <button type="button" class="cad-switch is-active" data-cad-shader="pbr" id="shader-pbr-btn">PBR LIT</button>
-              <button type="button" class="cad-switch" data-cad-shader="clay" id="shader-clay-btn">CLAY</button>
-              <button type="button" class="cad-switch" data-cad-shader="wire" id="shader-wire-btn">WIRE</button>
-              <button type="button" class="cad-switch" data-cad-shader="normals" id="shader-normals-btn">NORMALS</button>
-            </div>
+            <!-- Central Shield Crest + Grayscale Cut-Out Portrait -->
+            <svg
+              class="hero-portrait__crest-svg"
+              viewBox="0 0 460 500"
+              fill="none"
+              role="img"
+              aria-label="Monochrome portrait crest of Sharif Ul Abedin"
+            >
+              <defs>
+                <!-- Pop-out clip: open above shield top (y=8..114) so head overlaps top border, clipped along sides & V-bottom -->
+                <clipPath id="hero-shield-popout-clip">
+                  <path d="M 72 8 L 388 8 L 388 341.8 A 32 32 0 0 1 374.94 367.59 L 246.58 461.83 A 28 28 0 0 1 213.42 461.83 L 85.06 367.59 A 32 32 0 0 1 72 341.8 Z" />
+                </clipPath>
 
-            <div class="cad-shader-group" role="group" aria-label="Viewport Helpers">
-              <button type="button" class="cad-switch is-active" data-cad-action="grid" id="cad-grid-btn">GRID/BOX</button>
-              <button type="button" class="cad-switch is-active" data-cad-action="turntable" id="cad-turntable-btn">SPIN</button>
-              <button type="button" class="cad-switch" data-cad-action="reset" id="cad-reset-btn">RESET</button>
-            </div>
+                <!-- Red-channel-weighted editorial B&W portrait filter (lifts warm skin tones while keeping hair/turtleneck crisp) -->
+                <filter id="hero-grayscale-cutout" color-interpolation-filters="sRGB">
+                  <feColorMatrix
+                    type="matrix"
+                    values="0.56 0.34 0.10 0 0
+                            0.56 0.34 0.10 0 0
+                            0.56 0.34 0.10 0 0
+                            0    0    0    1 0"
+                  />
+                  <feComponentTransfer>
+                    <feFuncR type="gamma" amplitude="1.06" exponent="0.84" offset="-0.02" />
+                    <feFuncG type="gamma" amplitude="1.06" exponent="0.84" offset="-0.02" />
+                    <feFuncB type="gamma" amplitude="1.06" exponent="0.84" offset="-0.02" />
+                  </feComponentTransfer>
+                </filter>
+              </defs>
+
+              <!-- Hard Neo-Brutalist Offset Shadow -->
+              <path
+                class="hero-portrait__shield-shadow"
+                d="M 72 152 A 38 38 0 0 1 110 114 L 350 114 A 38 38 0 0 1 388 152 L 388 341.8 A 32 32 0 0 1 374.94 367.59 L 246.58 461.83 A 28 28 0 0 1 213.42 461.83 L 85.06 367.59 A 32 32 0 0 1 72 341.8 Z"
+                transform="translate(10, 12)"
+                fill="#141414"
+              />
+
+              <!-- Vibrant Solid Accent Shield Background -->
+              <path
+                class="hero-portrait__shield-bg"
+                d="M 72 152 A 38 38 0 0 1 110 114 L 350 114 A 38 38 0 0 1 388 152 L 388 341.8 A 32 32 0 0 1 374.94 367.59 L 246.58 461.83 A 28 28 0 0 1 213.42 461.83 L 85.06 367.59 A 32 32 0 0 1 72 341.8 Z"
+                fill="#FF86E8"
+                stroke="#0D0D0D"
+                stroke-width="4.5"
+              />
+
+              <!-- Clipped Portrait Group (Head pops above y=114 top rim, shoulders/torso clip cleanly along side walls & V-bottom) -->
+              <g clip-path="url(#hero-shield-popout-clip)">
+                <image
+                  id="hero-portrait-photo"
+                  href="/images/profile-cutout.webp"
+                  x="55.5"
+                  y="66"
+                  width="349"
+                  height="417"
+                  preserveAspectRatio="xMidYMin meet"
+                  filter="url(#hero-grayscale-cutout)"
+                />
+              </g>
+
+              <!-- Foreground Shield Side & Bottom V-Rim Stroke (keeps border crisp over clipped shoulders while head pops out top) -->
+              <path
+                d="M 350 114 A 38 38 0 0 1 388 152 L 388 341.8 A 32 32 0 0 1 374.94 367.59 L 246.58 461.83 A 28 28 0 0 1 213.42 461.83 L 85.06 367.59 A 32 32 0 0 1 72 341.8 L 72 152 A 38 38 0 0 1 110 114"
+                fill="none"
+                stroke="#0D0D0D"
+                stroke-width="4.5"
+                stroke-linecap="round"
+              />
+            </svg>
+
+            <!-- 4. Mid-Right Circular Sticker: Stage Light / GrandMA2 DMX -->
+            <button
+              type="button"
+              class="portrait-sticker portrait-sticker--dmx"
+              id="hero-sticker-dmx"
+              data-sticker-target="#pillars"
+              data-sticker-label="VIRTUAL PRODUCTION & GRANDMA2 DMX512"
+              aria-label="Inspect Broadcast Virtual Production and GrandMA2 DMX Pillars"
+              title="Broadcast Stage Lighting &amp; GrandMA2 DMX512 — Click to view pillars"
+            >
+              <svg viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <!-- Radial light ticks echoing reference eye badge -->
+                <path d="M28 5V9.5M28 46.5V51M10 14L13.5 17.5M42.5 38.5L46 42M46 14L42.5 17.5M13.5 38.5L10 42M5 28H9.5M46.5 28H51" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" />
+                <!-- DMX Stage Spotlight Housing & Lens -->
+                <path d="M17 21.5L23.5 14H32.5L39 21.5V31.5C39 37.575 34.075 42.5 28 42.5C21.925 42.5 17 37.575 17 31.5V21.5Z" fill="#FFF3B0" stroke="#0D0D0D" stroke-width="2.6" stroke-linejoin="round" />
+                <circle cx="28" cy="29.5" r="7" fill="#FF4D00" stroke="#0D0D0D" stroke-width="2.5" />
+                <circle cx="28" cy="29.5" r="2.5" fill="#FFF3B0" />
+              </svg>
+            </button>
+
+            <!-- 5. Lower-Left Sticker: 3D Cube / Photogrammetry -->
+            <button
+              type="button"
+              class="portrait-sticker portrait-sticker--cube"
+              id="hero-sticker-cube"
+              data-sticker-target="#stage"
+              data-sticker-label="11 SKETCHFAB 3D PHOTOGRAMMETRY SCANS"
+              aria-label="Inspect 11 Sketchfab 3D Photogrammetry Scans"
+              title="3D Photogrammetry &amp; Mesh Topology — Click to inspect 11 scans"
+            >
+              <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <!-- Corner scan reticle brackets -->
+                <path d="M7 15V8H14M34 8H41V15M41 33V40H34M14 40H7V33" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <!-- Isometric 3D Cube -->
+                <path d="M24 11.5L36 18.5V31L24 38L12 31V18.5L24 11.5Z" fill="#FFE44D" stroke="#0D0D0D" stroke-width="2.6" stroke-linejoin="round" />
+                <path d="M12 18.5L24 25.5L36 18.5M24 25.5V38" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+
+            <!-- 6. Bottom-Right Availability Pill + Mini Cursor -->
+            <a href="#dispatch" class="portrait-status-wrap" id="hero-status-pill" title="Jump to Direct Contact &amp; Project Brief">
+              <svg class="portrait-status-cursor" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 3L19 10.5L12 13L9.5 20L5 3Z" fill="#3EE07F" stroke="#0D0D0D" stroke-width="2.2" stroke-linejoin="round" />
+              </svg>
+              <span class="portrait-status-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2L14.8 4.2L18.3 3.7L19.4 7.1L22.3 9.1L21.2 12.5L22.3 15.9L19.4 17.9L18.3 21.3L14.8 20.8L12 23L9.2 20.8L5.7 21.3L4.6 17.9L1.7 15.9L2.8 12.5L1.7 9.1L4.6 7.1L5.7 3.7L9.2 4.2L12 2Z" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="2" stroke-linejoin="round" />
+                  <path d="M8.5 12.5L10.8 14.8L15.6 10" stroke="#0D0D0D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Available for Freelance / Lead XR</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -259,6 +406,7 @@
           </div>
 
           <div class="stage-frame-wrap">
+            <div class="stage-loader-bar" id="skf-stage-loader" aria-hidden="true"></div>
             <iframe
               id="skf-stage-iframe"
               title="Sharif Ul Abedin Sketchfab 3D Stage"
@@ -435,11 +583,12 @@
               Formats your inquiry directly into your default mail client or WhatsApp—direct to my inbox with zero third-party form trackers.
             </p>
 
-            <form class="brief-form" id="brief-dispatch-form">
+            <form class="brief-form" id="brief-dispatch-form" novalidate>
               <div class="brief-form__row">
                 <div>
                   <label class="nb-label" for="brief-name">Your Name *</label>
-                  <input class="nb-input" type="text" id="brief-name" name="name" required placeholder="Alex Rivera" />
+                  <input class="nb-input" type="text" id="brief-name" name="name" required placeholder="Alex Rivera" aria-describedby="brief-name-err" />
+                  <div class="nb-field-error" id="brief-name-err" role="alert" aria-live="polite"></div>
                 </div>
                 <div>
                   <label class="nb-label" for="brief-org">Studio / Company</label>
@@ -460,7 +609,8 @@
 
               <div>
                 <label class="nb-label" for="brief-message">Technical Brief / Timeline *</label>
-                <textarea class="nb-textarea" id="brief-message" name="message" rows="4" required placeholder="Target engine/platform, timeline, or role details..."></textarea>
+                <textarea class="nb-textarea" id="brief-message" name="message" rows="4" required placeholder="Target engine/platform, timeline, or role details..." aria-describedby="brief-message-err"></textarea>
+                <div class="nb-field-error" id="brief-message-err" role="alert" aria-live="polite"></div>
               </div>
 
               <div class="brief-form__actions">
@@ -522,7 +672,7 @@
           type="text"
           class="cmdk-input"
           id="cmdk-input"
-          placeholder="Search 14+ 3D models, projects, CV, wireframe, theme..."
+          placeholder="Search 11+ 3D scans, projects, CV, freelance, theme..."
           autocomplete="off"
         />
         <button type="button" class="nb-btn nb-btn--sm" id="cmdk-close">ESC</button>
