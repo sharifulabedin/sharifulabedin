@@ -3,10 +3,11 @@
    ========================================================================== */
 
 import { PROFILE } from '../data/profile.js';
-import { LOCAL_CAD_MODELS, SKETCHFAB_MODELS } from '../data/models.js';
+import { SKETCHFAB_MODELS } from '../data/models.js';
 import { FLAGSHIP_WORKS } from '../data/projects.js';
+import { openAnimatedDialog, closeAnimatedDialog } from './microInteractions.js';
 
-export function initCommandPalette({ cadStage, sketchfabLab, toggleTheme, copyEmail }) {
+export function initCommandPalette({ sketchfabLab, toggleTheme, copyEmail }) {
   const backdrop = document.getElementById('cmdk-backdrop');
   const input = document.getElementById('cmdk-input');
   const resultsEl = document.getElementById('cmdk-results');
@@ -42,29 +43,19 @@ export function initCommandPalette({ cadStage, sketchfabLab, toggleTheme, copyEm
       run: () => copyEmail(),
     },
     {
+      title: 'Jump to Availability & Project Brief (#dispatch)',
+      cat: 'DISPATCH',
+      keywords: 'freelance hire contact lead xr role brief whatsapp',
+      run: () => {
+        document.getElementById('dispatch')?.scrollIntoView({ behavior: 'smooth' });
+      },
+    },
+    {
       title: 'Switch Paper / Dark Ink Theme',
       cat: 'THEME',
       keywords: 'dark light mode paper ink theme toggle',
       run: () => toggleTheme(),
     },
-    {
-      title: 'Toggle 3D Hero Wireframe Shader',
-      cat: '3D SHADER',
-      keywords: 'wireframe pbr clay shader threejs',
-      run: () => {
-        document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
-        cadStage?.toggleWireframe();
-      },
-    },
-    ...LOCAL_CAD_MODELS.map((m) => ({
-      title: `Mount Local WebGL Rig: ${m.title}`,
-      cat: 'WEBGL GLB',
-      keywords: `${m.code} ${m.title} ${m.subtitle} 3d local`,
-      run: () => {
-        document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
-        cadStage?.loadCadModel(m.id);
-      },
-    })),
     ...SKETCHFAB_MODELS.map((m) => ({
       title: `Inspect Sketchfab 3D: ${m.title} (${m.faces} Tris)`,
       cat: 'SKETCHFAB',
@@ -122,16 +113,13 @@ export function initCommandPalette({ cadStage, sketchfabLab, toggleTheme, copyEm
   }
 
   function openPalette() {
-    backdrop.hidden = false;
-    document.body.style.overflow = 'hidden';
     input.value = '';
     filterCommands('');
-    requestAnimationFrame(() => input.focus());
+    openAnimatedDialog(backdrop, input);
   }
 
   function closePalette() {
-    backdrop.hidden = true;
-    document.body.style.overflow = '';
+    closeAnimatedDialog(backdrop);
   }
 
   openBtns.forEach((btn) => btn.addEventListener('click', openPalette));

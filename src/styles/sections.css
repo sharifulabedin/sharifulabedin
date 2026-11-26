@@ -2,7 +2,7 @@
    ROUNDED NEO-BRUTALIST SECTIONS, 3D CAD VIEWPORT, ARCHIVE CARDS & TIMELINE
    ========================================================================== */
 
-/* 1. Sticky Mechanical Top Bar */
+/* 1. Sticky Mechanical Top Bar + GPU Scroll Progress Indicator */
 .site-header {
   position: sticky;
   top: 0;
@@ -10,7 +10,21 @@
   height: var(--header-h);
   background: var(--bg-canvas);
   border-bottom: var(--border-heavy);
-  transition: background-color 160ms ease;
+  transition: background-color var(--dur-normal) var(--ease-standard);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2.5px;
+  height: 3px;
+  background: var(--accent-orange);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .site-header__inner {
@@ -43,6 +57,20 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform var(--dur-normal) var(--ease-spring),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-mark:hover .brand-mark__box {
+    transform: translate(-1.5px, -1.5px) rotate(-4deg);
+    box-shadow: 4px 5px 0px var(--shadow-color);
+  }
+}
+
+.brand-mark:active .brand-mark__box {
+  transform: translate(1.5px, 1.5px) scale(0.96);
+  box-shadow: 0px 0px 0px var(--shadow-color);
 }
 
 .brand-mark__text {
@@ -83,13 +111,26 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   border: 1.5px solid transparent;
-  transition: background-color 100ms ease, border-color 100ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              background-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
 }
 
-.site-nav__link:hover {
+@media (hover: hover) and (pointer: fine) {
+  .site-nav__link:hover {
+    background: var(--accent-yellow);
+    color: #0D0D0D;
+    border-color: var(--border-ink);
+    transform: translateY(-1px);
+  }
+}
+
+.site-nav__link.is-current {
   background: var(--accent-yellow);
   color: #0D0D0D;
   border-color: var(--border-ink);
+  box-shadow: 2px 2px 0px var(--shadow-color);
 }
 
 .header-controls {
@@ -111,36 +152,71 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  transition: transform 80ms ease, box-shadow 80ms ease, background-color 100ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard);
 }
-.cmdk-trigger:hover {
-  background: var(--accent-yellow);
-  color: #0D0D0D;
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .cmdk-trigger:hover {
+    background: var(--accent-yellow);
+    color: #0D0D0D;
+    transform: translate(-1.5px, -1.5px);
+    box-shadow: var(--shadow-md);
+  }
+}
+.cmdk-trigger:active {
+  transform: translate(2px, 2px) scale(0.97);
+  box-shadow: 0 0 0 var(--shadow-color);
 }
 
 .mobile-menu-toggle {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
   background: var(--bg-surface);
   border: var(--border-std);
   box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              background-color var(--dur-fast) var(--ease-standard);
+}
+.mobile-menu-toggle:active {
+  transform: translate(2px, 2px) scale(0.95);
+}
+.mobile-menu-toggle[aria-expanded="true"] {
+  background: var(--accent-yellow);
+  color: #0D0D0D;
 }
 
 .mobile-drawer {
-  display: none;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
   background: var(--bg-surface);
-  border-bottom: var(--border-heavy);
+  border-bottom: 0 solid transparent;
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  padding: 16px;
+  transition: grid-template-rows var(--dur-exit) var(--ease-exit),
+              opacity var(--dur-exit) var(--ease-exit);
+}
+.mobile-drawer__inner {
+  overflow: hidden;
+  padding: 0 16px;
+  transition: padding var(--dur-exit) var(--ease-exit);
 }
 .mobile-drawer.is-open {
-  display: block;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+  border-bottom: var(--border-heavy);
+  box-shadow: 0 8px 0px var(--shadow-color);
+  transition: grid-template-rows var(--dur-normal) var(--ease-out-quart),
+              opacity var(--dur-fast) var(--ease-enter);
+}
+.mobile-drawer.is-open .mobile-drawer__inner {
+  padding: 16px;
 }
 .mobile-drawer__nav {
   display: grid;
@@ -149,6 +225,9 @@
   margin-bottom: 12px;
 }
 .mobile-drawer__link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   padding: 10px 14px;
   border: var(--border-std);
   border-radius: var(--radius-md);
@@ -157,6 +236,13 @@
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
+  transition: transform var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard);
+}
+.mobile-drawer__link:active {
+  transform: scale(0.97);
+  background: var(--accent-yellow);
+  color: #0D0D0D;
 }
 
 /* 2. Section Spacing & Dividers */
@@ -169,7 +255,7 @@
   background-color: var(--bg-elevated);
 }
 
-/* 3. Hero Section + Live Three.js CAD Rig */
+/* 3. Hero Section + Neo-Brutalist Portrait Crest */
 .hero-section {
   padding-block: clamp(32px, 5vw, 64px);
   border-bottom: var(--border-heavy);
@@ -177,9 +263,9 @@
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
   gap: clamp(24px, 3.2vw, 44px);
-  align-items: stretch;
+  align-items: center;
 }
 
 .hero-dossier {
@@ -207,6 +293,7 @@
 }
 
 .status-dot {
+  position: relative;
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -214,6 +301,22 @@
   background: var(--accent-green);
   border: 1.5px solid var(--border-ink);
   margin-right: 6px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes mi-status-pulse {
+    0% { transform: scale(1); opacity: 0.65; }
+    75%, 100% { transform: scale(2.2); opacity: 0; }
+  }
+  .status-dot::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    z-index: -1;
+    animation: mi-status-pulse 2.4s var(--ease-out-quart) infinite;
+  }
 }
 
 .hero-title {
@@ -272,11 +375,14 @@
   border: var(--border-std);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  transition: transform 110ms ease, box-shadow 110ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard);
 }
-.telemetry-cell:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .telemetry-cell:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-md);
+  }
 }
 .telemetry-cell:nth-child(2) {
   background: var(--accent-mint);
@@ -305,175 +411,237 @@
   letter-spacing: 0.03em;
 }
 
-/* Native Three.js Rounded CAD Rig Panel */
-.cad-rig {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-surface);
-  border: var(--border-heavy);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-}
-
-.cad-rig__topbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 16px;
-  background: var(--bg-muted);
-  border-bottom: var(--border-heavy);
-}
-
-.cad-rig__tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.cad-model-btn {
-  padding: 5px 11px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: var(--bg-surface);
-  color: var(--ink);
-  border: 1.5px solid var(--border-ink);
-  border-radius: var(--radius-pill);
-  transition: background-color 90ms ease, transform 80ms ease;
-}
-.cad-model-btn:hover {
-  background: var(--accent-yellow);
-  color: #0D0D0D;
-}
-.cad-model-btn.is-active {
-  background: var(--accent-orange);
-  color: #FFFFFF;
-  border-color: var(--border-ink);
-}
-
-.cad-rig__viewport {
-  position: relative;
-  width: 100%;
-  flex: 1;
-  min-height: 390px;
-  background: #141414;
-  overflow: hidden;
-  cursor: grab;
-}
-.cad-rig__viewport:active {
-  cursor: grabbing;
-}
-
-#hero-webgl-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.cad-hud {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.cad-hud__box {
-  padding: 5px 12px;
-  background: rgba(13, 13, 13, 0.88);
-  color: #F4F0EA;
-  border: 1.5px solid rgba(244, 240, 234, 0.75);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 0.69rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.cad-hud__accent {
-  color: #FFE44D;
-}
-
-.cad-hint {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  padding: 5px 11px;
-  background: rgba(13, 13, 13, 0.82);
-  color: #D7D2C9;
-  border: 1px solid rgba(244, 240, 234, 0.45);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  text-transform: uppercase;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.cad-loader {
-  position: absolute;
-  inset: 0;
+/* Neo-Brutalist Portrait Shield Crest & Floating Stickers */
+.hero-portrait {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(13, 13, 13, 0.76);
-  color: #FFE44D;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  z-index: 4;
-}
-.cad-loader[hidden] {
-  display: none !important;
+  padding: 6px 4px;
+  user-select: none;
 }
 
-.cad-rig__controls {
-  display: flex;
-  flex-wrap: wrap;
+.hero-portrait__frame {
+  position: relative;
+  width: 100%;
+  max-width: 490px;
+  aspect-ratio: 460 / 500;
+  margin-inline: auto;
+}
+
+.hero-portrait__crest-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+[data-theme="ink"] .hero-portrait__shield-shadow {
+  fill: var(--shadow-color);
+}
+
+/* 1. Top Name Pill + Tilted Pointer Cursor */
+.portrait-name-wrap {
+  position: absolute;
+  top: 4.5%;
+  left: 47.5%;
+  z-index: 6;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 5px;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+@media (hover: hover) and (pointer: fine) {
+  .portrait-name-wrap:hover {
+    transform: translate3d(calc(var(--mx, 0px) - 2px), calc(var(--my, 0px) - 2px), 0) scale(1.03);
+  }
+}
+
+.portrait-name-cursor {
+  flex-shrink: 0;
+  margin-bottom: -10px;
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+@media (hover: hover) and (pointer: fine) {
+  .portrait-name-wrap:hover .portrait-name-cursor {
+    transform: translate(-2px, 2px) rotate(-6deg);
+  }
+}
+
+.portrait-name-pill {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  padding: 11px 14px;
-  background: var(--bg-surface);
-  border-top: var(--border-heavy);
-}
-
-.cad-shader-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.cad-switch {
-  padding: 5px 11px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: var(--bg-muted);
-  color: var(--ink);
-  border: 1.5px solid var(--border-ink);
-  border-radius: var(--radius-pill);
-  transition: background-color 90ms ease, transform 80ms ease;
-}
-.cad-switch:hover {
-  background: var(--accent-yellow);
+  padding: 7px 22px;
+  background: #8EA8FF;
   color: #0D0D0D;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.35vw, 1.15rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border: 2.5px solid #0D0D0D;
+  border-radius: var(--radius-pill);
+  box-shadow: 4px 5px 0px #0D0D0D;
 }
-.cad-switch.is-active {
-  background: var(--ink);
-  color: var(--ink-inverse);
+
+[data-theme="ink"] .portrait-name-pill {
+  box-shadow: 4px 5px 0px var(--shadow-color);
+}
+
+/* Shared Tactile Floating Icon Stickers (Interactive Domain Triggers) */
+.portrait-sticker {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid #0D0D0D;
+  box-shadow: 5px 6px 0px #0D0D0D;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0) rotate(var(--base-rot, 0deg));
+  transition: transform var(--dur-normal) var(--ease-spring),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.portrait-sticker svg {
+  width: 68%;
+  height: 68%;
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+
+[data-theme="ink"] .portrait-sticker {
+  box-shadow: 5px 6px 0px var(--shadow-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portrait-sticker:hover {
+    transform: translate3d(calc(var(--mx, 0px) - 3px), calc(var(--my, 0px) - 3px), 0) rotate(var(--hover-rot, -2deg)) scale(1.06);
+    box-shadow: 8px 9px 0px #0D0D0D;
+  }
+  .portrait-sticker:hover svg {
+    transform: scale(1.06);
+  }
+  [data-theme="ink"] .portrait-sticker:hover {
+    box-shadow: 8px 9px 0px var(--shadow-color);
+  }
+}
+
+.portrait-sticker:active {
+  transform: translate3d(2px, 2px, 0) rotate(var(--base-rot, 0deg)) scale(0.95) !important;
+  box-shadow: 1px 1px 0px #0D0D0D !important;
+  transition-duration: var(--dur-instant);
+}
+
+/* 2. Top-Left Teal Callout Sticker: VR Headset / Spatial XR */
+.portrait-sticker--xr {
+  top: 10.5%;
+  left: 1%;
+  width: clamp(74px, 19%, 94px);
+  height: clamp(68px, 17.5%, 86px);
+  background: #149B88;
+  border-radius: 22px;
+  --base-rot: 0deg;
+  --hover-rot: -3deg;
+}
+
+/* 3. Upper-Right Mint Sticker: Real-Time Engine / Controller */
+.portrait-sticker--engine {
+  top: 12.5%;
+  right: 3.5%;
+  width: clamp(56px, 14.2%, 68px);
+  height: clamp(56px, 14.2%, 68px);
+  background: #A9F5D8;
+  border-radius: 18px;
+  --base-rot: 5deg;
+  --hover-rot: 1deg;
+}
+
+/* 4. Mid-Right Yellow Circle Sticker: Stage Light / DMX */
+.portrait-sticker--dmx {
+  top: 42.5%;
+  right: 4.5%;
+  width: clamp(68px, 17.5%, 84px);
+  height: clamp(68px, 17.5%, 84px);
+  background: #FFD43B;
+  border-radius: 50%;
+  --base-rot: 0deg;
+  --hover-rot: 8deg;
+}
+
+/* 5. Lower-Left Coral Sticker: 3D Cube / Photogrammetry */
+.portrait-sticker--cube {
+  bottom: 20.5%;
+  left: 5%;
+  width: clamp(60px, 15.5%, 74px);
+  height: clamp(60px, 15.5%, 74px);
+  background: #FF6B4A;
+  border-radius: 20px;
+  --base-rot: -5deg;
+  --hover-rot: -1deg;
+}
+
+/* 6. Bottom-Right Availability Pill + Mini Green Cursor */
+.portrait-status-wrap {
+  position: absolute;
+  bottom: 4.5%;
+  right: 0%;
+  z-index: 6;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+
+.portrait-status-cursor {
+  margin-left: 8px;
+  margin-bottom: -2px;
+  filter: drop-shadow(2px 2px 0px #0D0D0D);
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+
+.portrait-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #3EE07F;
+  color: #0D0D0D;
+  font-family: var(--font-sans);
+  font-size: clamp(0.76rem, 1.05vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border: 2.5px solid #0D0D0D;
+  border-radius: var(--radius-pill);
+  box-shadow: 4px 5px 0px #0D0D0D;
+  white-space: nowrap;
+  transition: transform var(--dur-normal) var(--ease-spring),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard);
+}
+
+[data-theme="ink"] .portrait-status-pill {
+  box-shadow: 4px 5px 0px var(--shadow-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portrait-status-wrap:hover .portrait-status-pill {
+    background: #54EE90;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 7px 0px #0D0D0D;
+  }
+  [data-theme="ink"] .portrait-status-wrap:hover .portrait-status-pill {
+    box-shadow: 6px 7px 0px var(--shadow-color);
+  }
+  .portrait-status-wrap:hover .portrait-status-cursor {
+    transform: translate(-3px, -3px) rotate(-6deg);
+  }
+}
+
+.portrait-status-wrap:active .portrait-status-pill {
+  transform: translate(2px, 2px) scale(0.97);
+  box-shadow: 1px 1px 0px #0D0D0D;
+  transition-duration: var(--dur-instant);
 }
 
 /* 4. Engineering Pillars — Individual Rounded Neo-Brutalist Cards (Inspired by Reference Bento) */
@@ -493,11 +661,14 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: transform var(--dur-normal) var(--ease-out-quart),
+              box-shadow var(--dur-normal) var(--ease-out-quart);
 }
-.pillar-box:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 9px 10px 0px var(--shadow-color);
+@media (hover: hover) and (pointer: fine) {
+  .pillar-box:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 10px 0px var(--shadow-color);
+  }
 }
 
 .pillar-box__top {
@@ -584,6 +755,38 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #080808;
+  overflow: hidden;
+}
+
+/* Indeterminate GPU Progress Bar while 3D Sketchfab iframe mounts */
+@keyframes mi-stage-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(320%); }
+}
+
+.stage-loader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  z-index: 4;
+  opacity: 1;
+  transition: opacity var(--dur-normal) var(--ease-exit);
+  pointer-events: none;
+}
+.stage-loader-bar::after {
+  content: "";
+  display: block;
+  width: 34%;
+  height: 100%;
+  background: var(--accent-yellow);
+  animation: mi-stage-sweep 1.2s var(--ease-standard) infinite;
+}
+.stage-loader-bar.is-loaded {
+  opacity: 0;
 }
 
 .stage-frame-wrap iframe {
@@ -623,6 +826,17 @@
   gap: 24px;
 }
 
+@keyframes mi-filter-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .model-card {
   display: flex;
   flex-direction: column;
@@ -632,11 +846,25 @@
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: transform var(--dur-normal) var(--ease-out-quart),
+              box-shadow var(--dur-normal) var(--ease-out-quart);
 }
-.model-card:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: var(--shadow-lg);
+@media (prefers-reduced-motion: no-preference) {
+  .model-card.mi-filter-in {
+    animation: mi-filter-card-in var(--dur-normal) var(--ease-out-quart) both;
+    animation-delay: var(--stagger-delay, 0ms);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .model-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+@media (pointer: coarse) {
+  .model-card:active {
+    transform: scale(0.99);
+  }
 }
 .model-card.is-staged {
   box-shadow: 0 0 0 3px var(--accent-orange), var(--shadow-lg);
@@ -656,10 +884,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 240ms ease;
+  transition: transform var(--dur-slow) var(--ease-out-quart);
 }
-.model-card:hover .model-card__media img {
-  transform: scale(1.03);
+@media (hover: hover) and (pointer: fine) {
+  .model-card:hover .model-card__media img {
+    transform: scale(1.04);
+  }
 }
 
 .model-card__media iframe {
@@ -1086,6 +1316,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 44px;
   padding: 10px 14px;
   background: var(--bg-surface);
   border: var(--border-std);
@@ -1095,13 +1326,28 @@
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  transition: transform 90ms ease, box-shadow 90ms ease, background-color 100ms ease;
+  transition: transform var(--dur-fast) var(--ease-out-back),
+              box-shadow var(--dur-fast) var(--ease-standard),
+              background-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
 }
-.social-tile:hover {
-  background: var(--accent-yellow);
-  color: #0D0D0D;
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .social-tile:hover {
+    background: var(--accent-yellow);
+    color: #0D0D0D;
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-md);
+  }
+  .social-tile:hover .nb-circle-icon {
+    transform: translate(2px, -2px) rotate(10deg);
+    background: #0D0D0D;
+    color: var(--accent-yellow);
+    border-color: #0D0D0D;
+  }
+}
+.social-tile:active {
+  transform: translate(2px, 2px) scale(0.98);
+  box-shadow: 0 0 0 var(--shadow-color);
 }
 
 .brief-form {
@@ -1139,7 +1385,7 @@
   gap: 14px;
 }
 
-/* 11. Cmd+K Rounded Mechanical Command Palette */
+/* 11. Cmd+K Rounded Mechanical Command Palette (Spring Enter / Snappy Exit) */
 .cmdk-dialog {
   width: 100%;
   max-width: 640px;
@@ -1151,6 +1397,16 @@
   flex-direction: column;
   max-height: 80vh;
   overflow: hidden;
+  transform: translateY(8px) scale(0.95);
+  opacity: 0;
+  transition: transform var(--dur-exit) var(--ease-exit),
+              opacity var(--dur-exit) var(--ease-exit);
+}
+.nb-modal-backdrop.is-open .cmdk-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  transition: transform var(--dur-normal) var(--ease-spring),
+              opacity var(--dur-fast) var(--ease-enter);
 }
 
 .cmdk-input-wrap {
@@ -1190,6 +1446,9 @@
   border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   font-size: 0.9rem;
+  transition: background-color var(--dur-instant) var(--ease-standard),
+              color var(--dur-instant) var(--ease-standard),
+              padding-left var(--dur-fast) var(--ease-out-quart);
 }
 .cmdk-item.is-selected,
 .cmdk-item:hover {
@@ -1205,6 +1464,22 @@
   padding: 2px 8px;
   border-radius: var(--radius-pill);
   border: 1.5px solid currentColor;
+  flex-shrink: 0;
+}
+
+/* 12. Opt-In Scroll-Triggered Reveal (Compositor-Only, Fire-Once, Reduced-Motion Safe) */
+@media (prefers-reduced-motion: no-preference) {
+  .mi-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity var(--dur-reveal) var(--ease-out-quart),
+                transform var(--dur-reveal) var(--ease-out-quart);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .mi-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Breakpoints */
@@ -1252,7 +1527,19 @@
   .header-hide-sm {
     display: none !important;
   }
-  .cad-rig__viewport {
-    min-height: 320px;
+  .hero-portrait__frame {
+    max-width: 380px;
+  }
+  .portrait-sticker svg {
+    width: 62%;
+    height: 62%;
+  }
+  .portrait-status-pill {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+  .portrait-name-pill {
+    padding: 5px 16px;
   }
 }

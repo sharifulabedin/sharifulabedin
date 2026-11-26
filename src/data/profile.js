@@ -13,13 +13,15 @@ export const PROFILE = {
   email: 'sharifulabedin@live.com',
   cvPdfPath: '/Sharif_Ul_Abedin_CV.pdf',
   cvPrintPath: '/cv',
+  shortName: 'Sharif',
+  portraitUrl: '/images/profile-cutout.webp',
   availability: 'OPEN FOR SENIOR XR, TECHNICAL ART & VIRTUAL PRODUCTION ROLES',
   summary:
     'Senior XR Designer and Technical Artist with 7+ years of production mastery across Unreal Engine 5/4, Unity, broadcast-grade virtual production with GrandMA2 DMX synchronization, national-finalist medical AR, and millimeter-accurate aerial photogrammetry.',
   telemetry: [
     { value: '7+ YRS', label: 'Real-Time XR & 3D' },
     { value: '60+ FPS', label: 'Strict Frame Budget' },
-    { value: '14 ASSETS', label: 'WebGL + Sketchfab' },
+    { value: '11 SCANS', label: 'Sketchfab 3D Archive' },
     { value: 'UE5 + DMX', label: 'Broadcast Stages' },
   ],
   socials: [
