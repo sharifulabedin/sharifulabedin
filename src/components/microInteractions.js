@@ -88,58 +88,6 @@ export function closeAnimatedDialog(backdrop, onAfterClose) {
   }
 }
 
-function initScrollProgressBar() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
-
-  let ticking = false;
-  const update = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    header.style.setProperty('--scroll-progress', progress.toFixed(4));
-    ticking = false;
-  };
-
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    },
-    { passive: true }
-  );
-  update();
-}
-
-function initActiveNavSpy() {
-  const navLinks = Array.from(document.querySelectorAll('.site-nav__link[href^="#"]'));
-  if (!navLinks.length || !('IntersectionObserver' in window)) return;
-
-  const map = new Map();
-  navLinks.forEach((link) => {
-    const id = link.getAttribute('href')?.slice(1);
-    const sec = id ? document.getElementById(id) : null;
-    if (sec) map.set(sec, link);
-  });
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const activeLink = map.get(entry.target);
-          if (!activeLink) return;
-          navLinks.forEach((l) => l.classList.toggle('is-current', l === activeLink));
-        }
-      });
-    },
-    { rootMargin: '-28% 0px -58% 0px', threshold: 0 }
-  );
-
-  map.forEach((_link, sec) => observer.observe(sec));
-}
-
 function initScrollReveals() {
   if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
@@ -238,8 +186,6 @@ function initToastDismiss() {
 }
 
 export function initPortfolioMicroInteractions(showToast) {
-  initScrollProgressBar();
-  initActiveNavSpy();
   initScrollReveals();
   initHeroStickerInteractions(showToast);
   initToastDismiss();

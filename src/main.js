@@ -32,11 +32,19 @@ function initThemeRocker() {
 
   function applyTheme(mode) {
     const clean = mode === 'ink' ? 'ink' : 'paper';
+    const nextLabel = clean === 'ink' ? 'PAPER' : 'INK';
     root.setAttribute('data-theme', clean);
     localStorage.setItem('sua_theme', clean);
 
-    document.querySelectorAll('[data-theme-opt]').forEach((el) => {
-      el.classList.toggle('is-active', el.dataset.themeOpt === clean);
+    document.querySelectorAll('[data-theme-label]').forEach((el) => {
+      el.textContent = nextLabel;
+    });
+
+    document.querySelectorAll('[data-toggle-theme]').forEach((btn) => {
+      btn.setAttribute(
+        'aria-label',
+        clean === 'ink' ? 'Switch to Paper light theme' : 'Switch to Dark Ink theme'
+      );
     });
   }
 

@@ -60,69 +60,71 @@
   <a href="#main-content" class="skip-link" id="skip-to-main">SKIP TO 3D STAGE &amp; CV DOSSIER ↓</a>
 
   <!-- =====================================================================
-       STICKY MECHANICAL HEADER
+       CLEAN SEAMLESS TOP HEADER
        ===================================================================== -->
   <header class="site-header" id="site-header">
     <div class="container site-header__inner">
-      <a href="#hero" class="brand-mark" id="brand-home-link">
-        <span class="brand-mark__box">SA</span>
-        <span class="brand-mark__text">
-          <span class="brand-mark__name">Sharif Ul Abedin</span>
-          <span class="brand-mark__sub">DOC // SUA-XR-2026</span>
-        </span>
+      <a href="#hero" class="brand-pill" id="brand-home-link" aria-label="sharifulabedin — Home">
+        <span class="brand-pill__mark" aria-hidden="true">SA</span>
+        <span class="brand-pill__name">sharifulabedin</span>
       </a>
 
-      <nav class="site-nav" aria-label="Primary Sections">
-        <a href="#pillars" class="site-nav__link" id="nav-pillars">01.PILLARS</a>
-        <a href="#stage" class="site-nav__link" id="nav-stage">02.3D_ARCHIVE</a>
-        <a href="#works" class="site-nav__link" id="nav-works">03.WORKS</a>
-        <a href="#arsenal" class="site-nav__link" id="nav-arsenal">04.ARSENAL</a>
-        <a href="#chronology" class="site-nav__link" id="nav-chronology">05.TIMELINE</a>
-        <a href="#dispatch" class="site-nav__link" id="nav-dispatch">06.DISPATCH</a>
-      </nav>
+      <div class="header-right">
+        <nav class="site-nav" aria-label="Primary Navigation">
+          <a href="#pillars" class="site-nav__link" id="nav-pillars">Pillars</a>
+          <a href="#stage" class="site-nav__link" id="nav-stage">3D Archive</a>
+          <a href="#works" class="site-nav__link" id="nav-works">Works</a>
+          <a href="#arsenal" class="site-nav__link" id="nav-arsenal">Arsenal</a>
+          <a href="#chronology" class="site-nav__link" id="nav-chronology">Timeline</a>
+          <a href="#dispatch" class="site-nav__link" id="nav-dispatch">Contact</a>
+        </nav>
 
-      <div class="header-controls">
-        <button type="button" class="cmdk-trigger header-hide-sm" data-open-cmdk id="header-cmdk-btn" title="Open Quick Command Bar (Cmd+K / Ctrl+K)">
-          <span>INDEX</span>
-          <kbd style="padding:1px 7px;border:1.5px solid currentColor;border-radius:999px;font-size:0.66rem;">⌘K</kbd>
+        <button
+          type="button"
+          class="theme-dot-toggle"
+          data-toggle-theme
+          id="header-theme-toggle"
+          aria-label="Switch to Dark Ink theme"
+          title="Switch Paper / Dark Ink Theme"
+        >
+          <span class="theme-dot-toggle__ring" aria-hidden="true">
+            <span class="theme-dot-toggle__core"></span>
+          </span>
+          <span data-theme-label>INK</span>
         </button>
 
-        <button type="button" class="theme-rocker" data-toggle-theme id="header-theme-toggle" aria-label="Toggle Paper and Dark Ink Theme">
-          <span class="theme-rocker__opt is-active" data-theme-opt="paper">PAPER</span>
-          <span class="theme-rocker__opt" data-theme-opt="ink">INK</span>
-        </button>
-
-        <a href="/cv" target="_blank" rel="noopener" class="nb-btn nb-btn--sm header-hide-sm" id="header-print-cv-link" title="Open Printable 2-Page A4 CV">
-          A4 PRINT
-        </a>
-
-        <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="nb-btn nb-btn--sm nb-btn--primary header-hide-sm" id="header-download-cv-btn">
-          CV.PDF ↓
-        </a>
-
-        <button type="button" class="mobile-menu-toggle" id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Toggle Navigation Menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M3 6h18M3 12h18M3 18h18" />
+        <button
+          type="button"
+          class="mobile-menu-toggle"
+          id="mobile-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-drawer"
+          aria-label="Toggle Navigation Menu"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16" />
           </svg>
         </button>
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div class="mobile-drawer" id="mobile-drawer">
+    <div class="container mobile-drawer" id="mobile-drawer">
       <div class="mobile-drawer__inner">
-        <div class="mobile-drawer__nav">
-          <a href="#pillars" class="mobile-drawer__link">01 // PILLARS</a>
-          <a href="#stage" class="mobile-drawer__link">02 // 3D ARCHIVE</a>
-          <a href="#works" class="mobile-drawer__link">03 // WORKS</a>
-          <a href="#arsenal" class="mobile-drawer__link">04 // ARSENAL</a>
-          <a href="#chronology" class="mobile-drawer__link">05 // TIMELINE</a>
-          <a href="#dispatch" class="mobile-drawer__link">06 // DISPATCH</a>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button type="button" class="nb-btn nb-btn--sm nb-btn--yellow" data-open-cmdk style="flex:1;">⌘K COMMANDS</button>
-          <a href="/cv" target="_blank" rel="noopener" class="nb-btn nb-btn--sm" style="flex:1;">A4 PRINT CV</a>
-          <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="nb-btn nb-btn--sm nb-btn--primary" style="flex:1;">CV.PDF ↓</a>
+        <div class="mobile-drawer__panel">
+          <div class="mobile-drawer__nav">
+            <a href="#pillars" class="mobile-drawer__link">Pillars</a>
+            <a href="#stage" class="mobile-drawer__link">3D Archive</a>
+            <a href="#works" class="mobile-drawer__link">Works</a>
+            <a href="#arsenal" class="mobile-drawer__link">Arsenal</a>
+            <a href="#chronology" class="mobile-drawer__link">Timeline</a>
+            <a href="#dispatch" class="mobile-drawer__link">Contact</a>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="nb-btn nb-btn--sm nb-btn--yellow" data-open-cmdk style="flex:1;">⌘K COMMANDS</button>
+            <a href="/cv" target="_blank" rel="noopener" class="nb-btn nb-btn--sm" style="flex:1;">A4 PRINT CV</a>
+            <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="nb-btn nb-btn--sm nb-btn--primary" style="flex:1;">CV.PDF ↓</a>
+          </div>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@
 
   /* Container Rhythm */
   --container-max: 1320px;
-  --header-h: 72px;
+  --header-h: 88px;
 
   /* Motion Design System Tokens (Dan Saffer / Micro-Interactions Spec) */
   --dur-instant: 60ms;

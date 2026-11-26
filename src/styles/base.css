@@ -11,7 +11,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 24px);
+  scroll-padding-top: 28px;
   background-color: var(--bg-canvas);
   color: var(--ink);
   -webkit-text-size-adjust: 100%;
