@@ -26,16 +26,31 @@
       z-index: 50;
       background: #F4F0EA;
       border-bottom: 3px solid #0D0D0D;
-      padding: 12px 24px;
+      padding: 10px 24px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
+    .print-toolbar__group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .print-toolbar__title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0D0D0D;
+    }
     .toolbar-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
       gap: 6px;
       padding: 8px 16px;
       font-family: 'IBM Plex Mono', monospace;
@@ -43,6 +58,7 @@
       font-weight: 700;
       text-transform: uppercase;
       text-decoration: none;
+      white-space: nowrap;
       color: #0D0D0D;
       background: #FFFFFF;
       border: 2px solid #0D0D0D;
@@ -50,9 +66,12 @@
       box-shadow: 3px 3px 0px #0D0D0D;
       cursor: pointer;
     }
-    .toolbar-btn:hover { background: #FFE44D; }
-    .toolbar-btn--primary { background: #FF4D00; color: #FFFFFF; }
-    .toolbar-btn--primary:hover { background: #E04300; color: #FFFFFF; }
+    @media (hover: hover) and (pointer: fine) {
+      .toolbar-btn:hover { background: #FFE44D; }
+      .toolbar-btn--primary:hover { background: #FF621F; color: #0D0D0D; }
+    }
+    .toolbar-btn--primary { background: #FF4D00; color: #0D0D0D; }
+    .tb-short { display: none; }
 
     /* A4 Sheet Container */
     .sheets-wrap {
@@ -97,7 +116,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 9.5pt;
       font-weight: 700;
-      color: #FF4D00;
+      color: #B53400;
       margin-top: 4px;
       text-transform: uppercase;
     }
@@ -106,6 +125,7 @@
       font-size: 8pt;
       text-align: right;
       line-height: 1.5;
+      overflow-wrap: anywhere;
     }
     .cv-contacts a { color: #0D0D0D; text-decoration: underline; }
 
@@ -125,7 +145,7 @@
     .cv-sec-title span:last-child {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 7.5pt;
-      color: #5E5952;
+      color: #524D46;
     }
 
     .cv-p { font-size: 9.3pt; color: #1F1E1C; text-align: justify; }
@@ -143,6 +163,8 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
       font-size: 9.6pt;
     }
     .job-role { font-weight: 700; }
@@ -150,7 +172,7 @@
     .job-org {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 8.4pt;
-      color: #FF4D00;
+      color: #B53400;
       font-weight: 600;
       margin-bottom: 3px;
     }
@@ -164,6 +186,8 @@
     .edu-row {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
       font-size: 9pt;
       margin-bottom: 5px;
     }
@@ -185,16 +209,45 @@
       padding-top: 5px;
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 7.5pt;
-      color: #5E5952;
+      color: #524D46;
     }
 
-    @media (max-width: 860px) {
-      .a4-sheet { width: 100%; min-height: auto; padding: 20px; }
-      .cv-header { flex-direction: column; align-items: flex-start; }
-      .cv-contacts { text-align: left; }
+    @media screen and (max-width: 860px) {
+      body { overflow-x: hidden; }
+      .print-toolbar {
+        height: 54px;
+        min-height: 52px;
+        max-height: 56px;
+        padding: 4px 8px;
+        flex-wrap: nowrap;
+        gap: 6px;
+      }
+      .print-toolbar__group { gap: 6px; }
+      .print-toolbar__title,
+      .tb-full { display: none; }
+      .tb-short { display: inline; }
+      .toolbar-btn {
+        height: 44px;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0 12px;
+        font-size: 0.75rem;
+        box-shadow: 2px 2px 0px #0D0D0D;
+      }
+      .sheets-wrap { padding: 16px 12px 32px; gap: 16px; }
+      .a4-sheet { width: 100%; min-height: auto; padding: 16px; box-shadow: 4px 4px 0px #0D0D0D; }
+      .cv-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .cv-name { font-size: 20pt; }
+      .cv-contacts { text-align: left; font-size: 9pt; }
+      .cv-p, .skill-grid, .skill-lbl, .job-ul, .edu-row, .quote-box, .ref-grid, .job-date, .job-org, .sheet-foot, .cv-sec-title span:last-child {
+        font-size: 0.78rem;
+      }
       .skill-grid { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr; gap: 12px; }
     }
 
     @page {
@@ -223,13 +276,13 @@
 </head>
 <body>
   <div class="print-toolbar">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <a href="/" class="toolbar-btn" id="cv-back-btn">← 3D PORTFOLIO</a>
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;font-weight:700;">SHARIF UL ABEDIN // 2-PAGE A4 SPEC CV</span>
+    <div class="print-toolbar__group">
+      <a href="/" class="toolbar-btn" id="cv-back-btn"><span class="tb-full">← 3D PORTFOLIO</span><span class="tb-short">← BACK</span></a>
+      <span class="print-toolbar__title">SHARIF UL ABEDIN // 2-PAGE A4 SPEC CV</span>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="toolbar-btn" id="cv-pdf-btn">OFFICIAL PDF ↓</a>
-      <button type="button" class="toolbar-btn toolbar-btn--primary" onclick="window.print()" id="cv-print-trigger">PRINT / SAVE A4 PDF ⎙</button>
+    <div class="print-toolbar__group">
+      <a href="/Sharif_Ul_Abedin_CV.pdf" download="Sharif_Ul_Abedin_CV.pdf" class="toolbar-btn" id="cv-pdf-btn"><span class="tb-full">OFFICIAL PDF ↓</span><span class="tb-short">PDF ↓</span></a>
+      <button type="button" class="toolbar-btn toolbar-btn--primary" onclick="window.print()" id="cv-print-trigger"><span class="tb-full">PRINT / SAVE A4 PDF ⎙</span><span class="tb-short">PRINT ⎙</span></button>
     </div>
   </div>
 

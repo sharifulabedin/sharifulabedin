@@ -1,15 +1,75 @@
 /* ==========================================================================
-   DIRECT CONTACT DISPATCH (1-Click Copy Email + Real Mailto/WhatsApp Brief)
+   DIRECT CONTACT DISPATCH (1-Click Copy Email + Collapsible Brief Drawer)
    ========================================================================== */
 
 import { PROFILE } from '../data/profile.js';
+import { prefersReducedMotion } from './microInteractions.js';
+
+const mobileBriefQuery = window.matchMedia('(max-width: 760px)');
 
 export function initContactDispatch(showToast) {
   const copyBtns = document.querySelectorAll('[data-copy-email]');
   const form = document.getElementById('brief-dispatch-form');
   const whatsappBtn = document.getElementById('brief-whatsapp-btn');
   const nameInput = document.getElementById('brief-name');
+  const orgInput = document.getElementById('brief-org');
   const messageInput = document.getElementById('brief-message');
+
+  const briefToggle = document.getElementById('brief-drawer-toggle');
+  const briefCollapse = document.getElementById('brief-drawer-collapse');
+
+  let briefOpen = false;
+
+  function isBriefDirty() {
+    return Boolean(
+      nameInput?.value.trim() ||
+      orgInput?.value.trim() ||
+      messageInput?.value.trim()
+    );
+  }
+
+  function syncBriefDrawer() {
+    if (!briefCollapse) return;
+    briefCollapse.classList.toggle('is-expanded', briefOpen);
+    briefToggle?.setAttribute('aria-expanded', briefOpen ? 'true' : 'false');
+    briefCollapse.inert = mobileBriefQuery.matches && !briefOpen;
+    window.dispatchEvent(new Event('scroll'));
+  }
+
+  function openBriefDrawer(focusFirstInput = false) {
+    briefOpen = true;
+    syncBriefDrawer();
+    if (focusFirstInput && nameInput) {
+      setTimeout(() => nameInput.focus({ preventScroll: true }), 60);
+    }
+  }
+
+  briefToggle?.addEventListener('click', () => {
+    if (briefOpen && isBriefDirty()) {
+      showToast?.('BRIEF LOCKED OPEN // CLEAR DRAFT FIELDS TO COLLAPSE');
+      return;
+    }
+    briefOpen = !briefOpen;
+    syncBriefDrawer();
+  });
+
+  mobileBriefQuery.addEventListener('change', syncBriefDrawer);
+  syncBriefDrawer();
+
+  // Auto-open brief drawer when clicking HIRE in dock or Hero availability status pill
+  const heroStatusPill = document.getElementById('hero-status-pill');
+  heroStatusPill?.addEventListener('click', () => {
+    openBriefDrawer(false);
+  });
+
+  document.querySelectorAll('[data-open-brief]').forEach((el) => {
+    el.addEventListener('click', () => {
+      openBriefDrawer(false);
+      document
+        .getElementById('dispatch')
+        ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    });
+  });
 
   function flashCopyButtonSuccess(btn) {
     if (!btn) return;
@@ -25,11 +85,14 @@ export function initContactDispatch(showToast) {
   }
 
   async function copyEmail(e) {
-    const triggerBtn = e?.currentTarget instanceof HTMLElement ? e.currentTarget : document.getElementById('copy-email-btn');
+    const triggerBtn =
+      e?.currentTarget instanceof HTMLElement
+        ? e.currentTarget
+        : document.getElementById('copy-email-btn');
     try {
       await navigator.clipboard.writeText(PROFILE.email);
       flashCopyButtonSuccess(triggerBtn);
-      showToast(`COPIED TO CLIPBOARD // ${PROFILE.email}`);
+      showToast?.(`COPIED TO CLIPBOARD // ${PROFILE.email}`);
     } catch {
       const ta = document.createElement('textarea');
       ta.value = PROFILE.email;
@@ -38,7 +101,7 @@ export function initContactDispatch(showToast) {
       document.execCommand('copy');
       ta.remove();
       flashCopyButtonSuccess(triggerBtn);
-      showToast(`COPIED // ${PROFILE.email}`);
+      showToast?.(`COPIED // ${PROFILE.email}`);
     }
   }
 
@@ -61,7 +124,6 @@ export function initContactDispatch(showToast) {
       return true;
     }
 
-    // Re-trigger shake animation cleanly if already invalid
     inputEl.classList.remove('is-valid', 'is-invalid');
     void inputEl.offsetWidth;
     inputEl.classList.add('is-invalid');
@@ -80,13 +142,13 @@ export function initContactDispatch(showToast) {
     if (!input) return;
     let touched = false;
     input.addEventListener('blur', () => {
-      if (!touched && !input.value.trim()) return;
+      if (!touched && input.value.length === 0) return;
       touched = true;
       validateField(input, err, msg);
     });
     input.addEventListener('input', () => {
       touched = true;
-      if (input.classList.contains('is-invalid') && input.value.trim().length > 0) {
+      if (input.value.trim().length > 0) {
         validateField(input, err, msg);
       }
     });
@@ -94,7 +156,7 @@ export function initContactDispatch(showToast) {
 
   function readBriefFields() {
     const name = nameInput?.value.trim() || '';
-    const org = document.getElementById('brief-org')?.value.trim() || '';
+    const org = orgInput?.value.trim() || '';
     const scope = document.getElementById('brief-scope')?.value || 'Senior XR / Technical Artist Engagement';
     const message = messageInput?.value.trim() || '';
     return { name, org, scope, message };
@@ -102,8 +164,17 @@ export function initContactDispatch(showToast) {
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const okName = validateField(nameInput, document.getElementById('brief-name-err'), 'REQUIRED // PLEASE ENTER YOUR NAME');
-    const okMsg = validateField(messageInput, document.getElementById('brief-message-err'), 'REQUIRED // ADD PROJECT OR ROLE DETAILS');
+    openBriefDrawer(false);
+    const okName = validateField(
+      nameInput,
+      document.getElementById('brief-name-err'),
+      'REQUIRED // PLEASE ENTER YOUR NAME'
+    );
+    const okMsg = validateField(
+      messageInput,
+      document.getElementById('brief-message-err'),
+      'REQUIRED // ADD PROJECT OR ROLE DETAILS'
+    );
     if (!okName || !okMsg) {
       const firstInvalid = !okName ? nameInput : messageInput;
       firstInvalid?.focus();
@@ -117,7 +188,7 @@ export function initContactDispatch(showToast) {
       `Hi Sharif,\n\nName: ${name}\nOrganization: ${org || 'N/A'}\nEngagement Scope: ${scope}\n\nProject / Role Brief:\n${message}\n`
     );
     window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
-    showToast('OPENING MAIL CLIENT WITH FORMATTED BRIEF...');
+    showToast?.('OPENING MAIL CLIENT WITH FORMATTED BRIEF...');
   });
 
   whatsappBtn?.addEventListener('click', () => {
@@ -132,5 +203,5 @@ export function initContactDispatch(showToast) {
     window.open(`${PROFILE.whatsappUrl}?text=${text}`, '_blank', 'noopener');
   });
 
-  return { copyEmail };
+  return { copyEmail, openBriefDrawer };
 }

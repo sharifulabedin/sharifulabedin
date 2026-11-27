@@ -16,13 +16,14 @@
   /* Typographic Ink */
   --ink: #0D0D0D;
   --ink-secondary: #33302C;
-  --ink-muted: #5E5952;
+  --ink-muted: #524D46;
   --ink-inverse: #F4F0EA;
 
-  /* Tactile Neo-Brutalist Accents */
+  /* Tactile Neo-Brutalist Accents (WCAG AA >= 4.5:1 Calibrated) */
   --accent-orange: #FF4D00;
-  --accent-orange-hover: #E04300;
-  --accent-orange-fg: #FFFFFF;
+  --accent-orange-hover: #FF621F;
+  --accent-orange-fg: #0D0D0D;
+  --accent-orange-text: #B53400;
 
   --accent-yellow: #FFE44D;
   --accent-yellow-fg: #0D0D0D;
@@ -39,23 +40,23 @@
 
   /* Crisp Ink Outlines & Curved Solid Offset Shadows */
   --border-ink: #0D0D0D;
-  --border-subtle: rgba(13, 13, 13, 0.2);
+  --border-subtle: rgba(13, 13, 13, 0.22);
   --shadow-color: #0D0D0D;
 
   --border-heavy: 2.5px solid var(--border-ink);
   --border-std: 2px solid var(--border-ink);
   --border-hair: 1px solid var(--border-subtle);
 
-  --shadow-lg: 6px 7px 0px var(--shadow-color);
-  --shadow-md: 4px 5px 0px var(--shadow-color);
-  --shadow-sm: 3px 3px 0px var(--shadow-color);
+  --shadow-lg: 6px 6px 0px var(--shadow-color);
+  --shadow-md: 4px 4px 0px var(--shadow-color);
+  --shadow-sm: 2px 2px 0px var(--shadow-color);
 
-  /* Rounded Neo-Brutalist Corner Radii */
+  /* Rounded Neo-Brutalist Corner Radii (4px Scale) */
   --radius-2xl: 24px;
   --radius-xl: 20px;
   --radius-lg: 16px;
   --radius-md: 12px;
-  --radius-sm: 9px;
+  --radius-sm: 8px;
   --radius-pill: 999px;
 
   /* Typography Families */
@@ -110,13 +111,14 @@
   /* Chalk Ink */
   --ink: #F4F0EA;
   --ink-secondary: #D7D2C9;
-  --ink-muted: #9E988E;
+  --ink-muted: #ADA79D;
   --ink-inverse: #0D0D0D;
 
-  /* Accents stay bold and high-contrast */
+  /* Accents stay bold and high-contrast (WCAG AA >= 4.5:1) */
   --accent-orange: #FF4D00;
   --accent-orange-hover: #FF621F;
-  --accent-orange-fg: #FFFFFF;
+  --accent-orange-fg: #0D0D0D;
+  --accent-orange-text: #FF7A3D;
 
   --accent-yellow: #FFE44D;
   --accent-yellow-fg: #0D0D0D;

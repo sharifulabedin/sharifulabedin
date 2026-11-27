@@ -2,11 +2,6 @@
    MAIN APPLICATION ENTRY — SHARIF UL ABEDIN NEO-BRUTALIST PORTFOLIO
    ========================================================================== */
 
-import './styles/tokens.css';
-import './styles/base.css';
-import './styles/components.css';
-import './styles/sections.css';
-
 import { PROFILE } from './data/profile.js';
 import { FLAGSHIP_WORKS } from './data/projects.js';
 import { initSketchfabLab } from './components/sketchfabLab.js';
@@ -77,22 +72,36 @@ function renderDynamicSections(sketchfabLabRef) {
       .join('');
   }
 
-  // 2. Engineering Pillars
+  // 2. Engineering Pillars (Desktop 2x2 Bento, Mobile Tactile Accordion with P.01 Open)
   const pillarsEl = document.getElementById('pillars-sheet');
   if (pillarsEl) {
     pillarsEl.innerHTML = PROFILE.pillars
       .map(
-        (p) => `
-        <article class="pillar-box">
-          <div>
-            <div class="pillar-box__top">
-              <span class="pillar-box__idx">${p.id}</span>
-              <span class="spec-tag">${p.tag}</span>
+        (p, idx) => `
+        <article class="pillar-box ${idx === 0 ? 'is-expanded' : ''}">
+          <h3 class="pillar-box__heading">
+            <button
+              type="button"
+              class="pillar-box__trigger"
+              aria-expanded="${idx === 0 ? 'true' : 'false'}"
+              aria-controls="pillar-panel-${idx}"
+            >
+              <span class="pillar-box__trigger-main">
+                <span class="pillar-box__top">
+                  <span class="pillar-box__idx">${p.id}</span>
+                  <span class="spec-tag">${p.tag}</span>
+                </span>
+                <span class="pillar-box__title">${p.title}</span>
+              </span>
+              <span class="pillar-box__chevron" aria-hidden="true">▾</span>
+            </button>
+          </h3>
+          <div class="pillar-box__collapse" id="pillar-panel-${idx}">
+            <div class="pillar-box__collapse-inner">
+              <p class="pillar-box__body">${p.body}</p>
+              <div class="pillar-box__stack">${p.stack}</div>
             </div>
-            <h3 class="pillar-box__title">${p.title}</h3>
-            <p class="pillar-box__body">${p.body}</p>
           </div>
-          <div class="pillar-box__stack">${p.stack}</div>
         </article>
       `
       )
@@ -148,13 +157,18 @@ function renderDynamicSections(sketchfabLabRef) {
     });
   }
 
-  // 4. Technical Arsenal
+  // 4. Technical Arsenal (4-Column Desktop Grid / 4-Tab Mobile Switcher)
   const arsenalEl = document.getElementById('arsenal-grid');
   if (arsenalEl) {
     arsenalEl.innerHTML = PROFILE.arsenal
       .map(
-        (col) => `
-        <div class="arsenal-col">
+        (col, idx) => `
+        <div
+          class="arsenal-col ${idx === 0 ? 'is-active-panel' : ''}"
+          id="arsenal-panel-${idx}"
+          role="tabpanel"
+          aria-labelledby="arsenal-tab-${idx}"
+        >
           <h3 class="arsenal-col__head">${col.category}</h3>
           <ul class="arsenal-list">
             ${col.items
@@ -167,28 +181,44 @@ function renderDynamicSections(sketchfabLabRef) {
       .join('');
   }
 
-  // 5. Career Chronology Ledger
+  // 5. Career Chronology Ledger (Recent 2 Open on Mobile, Earlier 4 Tap-to-Expand)
   const ledgerEl = document.getElementById('career-ledger');
   if (ledgerEl) {
     ledgerEl.innerHTML = PROFILE.experience
       .map(
-        (job) => `
-        <article class="ledger-item">
-          <div class="ledger-item__top">
-            <h3 class="ledger-item__role">${job.role}</h3>
-            <span class="ledger-item__period">${job.period}</span>
+        (job, idx) => `
+        <article class="ledger-item ${idx < 2 ? 'is-expanded' : ''}">
+          <div class="ledger-item__heading">
+            <button
+              type="button"
+              class="ledger-item__trigger"
+              aria-expanded="${idx < 2 ? 'true' : 'false'}"
+              aria-controls="career-panel-${idx}"
+            >
+              <span class="ledger-item__trigger-main">
+                <span class="ledger-item__top">
+                  <h3 class="ledger-item__role">${job.role}</h3>
+                  <span class="ledger-item__period">${job.period}</span>
+                </span>
+                <span class="ledger-item__org">${job.org} // ${job.location}</span>
+              </span>
+              <span class="ledger-item__chevron" aria-hidden="true">▾</span>
+            </button>
           </div>
-          <div class="ledger-item__org">${job.org} // ${job.location}</div>
-          <ul class="ledger-item__bullets">
-            ${job.bullets.map((b) => `<li>${b}</li>`).join('')}
-          </ul>
+          <div class="ledger-item__collapse" id="career-panel-${idx}">
+            <div class="ledger-item__collapse-inner">
+              <ul class="ledger-item__bullets">
+                ${job.bullets.map((b) => `<li>${b}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
         </article>
       `
       )
       .join('');
   }
 
-  // 6. Endorsement + Education + Certifications + References
+  // 6. Endorsement + 3-Tab Credentials Switcher (ACADEMIC · CERTS · REFEREES)
   const credsEl = document.getElementById('credentials-stack');
   if (credsEl) {
     const e = PROFILE.endorsement;
@@ -203,7 +233,13 @@ function renderDynamicSections(sketchfabLabRef) {
         </div>
       </aside>
 
-      <div class="cred-box">
+      <div class="mobile-tablist mobile-tablist--3" id="credentials-tablist" role="tablist" aria-label="Verified Credentials">
+        <button type="button" class="mobile-tab is-active" role="tab" id="cred-tab-0" aria-selected="true" aria-controls="cred-panel-0" tabindex="0">ACADEMIC</button>
+        <button type="button" class="mobile-tab" role="tab" id="cred-tab-1" aria-selected="false" aria-controls="cred-panel-1" tabindex="-1">CERTS</button>
+        <button type="button" class="mobile-tab" role="tab" id="cred-tab-2" aria-selected="false" aria-controls="cred-panel-2" tabindex="-1">REFEREES</button>
+      </div>
+
+      <div class="cred-box is-active-panel" id="cred-panel-0" role="tabpanel" aria-labelledby="cred-tab-0">
         <h3 class="cred-box__head">ACADEMIC FOUNDATION</h3>
         ${PROFILE.education
           .map(
@@ -217,7 +253,7 @@ function renderDynamicSections(sketchfabLabRef) {
           .join('')}
       </div>
 
-      <div class="cred-box">
+      <div class="cred-box" id="cred-panel-1" role="tabpanel" aria-labelledby="cred-tab-1">
         <h3 class="cred-box__head">CERTIFICATIONS &amp; LEADERSHIP</h3>
         ${PROFILE.certifications
           .map(
@@ -235,7 +271,7 @@ function renderDynamicSections(sketchfabLabRef) {
         </div>
       </div>
 
-      <div class="cred-box">
+      <div class="cred-box" id="cred-panel-2" role="tabpanel" aria-labelledby="cred-tab-2">
         <h3 class="cred-box__head">VERIFIED REFEREES</h3>
         ${PROFILE.references
           .map(
@@ -272,16 +308,44 @@ function initMobileDrawer() {
   const drawer = document.getElementById('mobile-drawer');
   if (!toggleBtn || !drawer) return;
 
-  toggleBtn.addEventListener('click', () => {
-    const open = drawer.classList.toggle('is-open');
+  function setDrawerOpen(open) {
+    drawer.classList.toggle('is-open', open);
+    drawer.inert = !open;
     toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  setDrawerOpen(false);
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const next = !drawer.classList.contains('is-open');
+    setDrawerOpen(next);
   });
 
   drawer.querySelectorAll('a, button').forEach((el) => {
     el.addEventListener('click', () => {
-      drawer.classList.remove('is-open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+      setDrawerOpen(false);
     });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!drawer.classList.contains('is-open')) return;
+    if (!drawer.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+      setDrawerOpen(false);
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      setDrawerOpen(false);
+      toggleBtn.focus({ preventScroll: true });
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && drawer.classList.contains('is-open')) {
+      setDrawerOpen(false);
+    }
   });
 }
 
@@ -297,7 +361,7 @@ function initHeroPortrait() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function bootPortfolio() {
   const sketchfabLabRef = { current: null };
 
   const { toggleTheme } = initThemeRocker();
@@ -308,7 +372,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const sketchfabLab = initSketchfabLab();
   sketchfabLabRef.current = sketchfabLab;
 
-  const { copyEmail } = initContactDispatch(showToast);
-  initCommandPalette({ sketchfabLab, toggleTheme, copyEmail });
-  initPortfolioMicroInteractions(showToast);
-});
+  const { copyEmail, openBriefDrawer } = initContactDispatch(showToast);
+  const disclosureApi = initPortfolioMicroInteractions(showToast);
+  initCommandPalette({
+    sketchfabLab,
+    toggleTheme,
+    copyEmail,
+    openBriefDrawer,
+    disclosureApi,
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootPortfolio, { once: true });
+} else {
+  bootPortfolio();
+}

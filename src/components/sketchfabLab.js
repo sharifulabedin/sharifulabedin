@@ -1,24 +1,66 @@
 /* ==========================================================================
-   11-MODEL SKETCHFAB CAD STAGE, INLINE CARD 3D PLAYER & FULLSCREEN MODAL
+   11-MODEL SKETCHFAB CAD STAGE, TOUCH SCROLL SHIELD, HORIZONTAL RAIL & MODAL
    ========================================================================== */
 
 import { SKETCHFAB_MODELS } from '../data/models.js';
-import { openAnimatedDialog, closeAnimatedDialog } from './microInteractions.js';
+import { openAnimatedDialog, closeAnimatedDialog, prefersReducedMotion } from './microInteractions.js';
 
 function buildEmbedUrl(uid, autostart = 1) {
   return `https://sketchfab.com/models/${uid}/embed?autostart=${autostart}&ui_theme=dark&dnt=1&ui_inspector=1&ui_ar=1&ui_vr=1&ui_settings=1&ui_watermark=1`;
 }
 
+function pad2(num) {
+  return String(num).padStart(2, '0');
+}
+
+export function computeRailCounter(gridEl, cardSelector) {
+  const cards = Array.from(gridEl.querySelectorAll(cardSelector));
+  const total = cards.length;
+  if (!total) return { current: 0, total: 0 };
+
+  const maxScroll = gridEl.scrollWidth - gridEl.clientWidth;
+  if (maxScroll <= 4) {
+    return { current: 1, total };
+  }
+  if (gridEl.scrollLeft >= maxScroll - 8) {
+    return { current: total, total };
+  }
+
+  let bestIdx = 0;
+  let bestDist = Infinity;
+  const baseLeft = gridEl.offsetLeft;
+  for (let i = 0; i < total; i += 1) {
+    const cardLeft = Math.max(0, cards[i].offsetLeft - baseLeft);
+    const dist = Math.abs(cardLeft - gridEl.scrollLeft);
+    if (dist < bestDist) {
+      bestDist = dist;
+      bestIdx = i;
+    }
+  }
+  return { current: bestIdx + 1, total };
+}
+
 export function initSketchfabLab() {
   const stageTitleEl = document.getElementById('skf-stage-title');
   const stageMetaEl = document.getElementById('skf-stage-meta');
+  const stageFrameWrap = document.getElementById('skf-stage-frame-wrap') || document.querySelector('.stage-frame-wrap');
   const stageIframe = document.getElementById('skf-stage-iframe');
   const stageLoaderEl = document.getElementById('skf-stage-loader');
   const stageExternalLink = document.getElementById('skf-stage-link');
   const stageResetBtn = document.getElementById('skf-stage-reset');
   const stageFullscreenBtn = document.getElementById('skf-stage-fullscreen');
+
+  // Mobile Touch Scroll Shield ("TAP TO ORBIT 3D" / "LOCK SCROLL")
+  const touchShield = document.getElementById('skf-touch-shield');
+  const orbitUnlockBtn = document.getElementById('skf-orbit-unlock-btn');
+  const lockScrollBtn = document.getElementById('skf-lock-scroll-btn');
+
+  // Filter Tablist & Horizontal Rail Controls
+  const filterBar = document.getElementById('skf-filter-bar');
+  const filterTabs = Array.from(document.querySelectorAll('[data-skf-filter]'));
+  const railCounterEl = document.getElementById('skf-rail-counter');
+  const viewAllBtn = document.getElementById('skf-view-all-btn');
   const gridEl = document.getElementById('skf-models-grid');
-  const filterTabs = document.querySelectorAll('[data-skf-filter]');
 
   // Inspector / Media Modal Elements
   const modalBackdrop = document.getElementById('inspector-modal');
@@ -32,16 +74,64 @@ export function initSketchfabLab() {
 
   let currentModel = SKETCHFAB_MODELS[0];
   let currentFilter = 'all';
+  let visibleCount = SKETCHFAB_MODELS.length;
 
   stageIframe.addEventListener('load', () => {
     stageLoaderEl?.classList.add('is-loaded');
   });
 
+  function unlockOrbit() {
+    stageFrameWrap?.classList.add('is-orbit-unlocked');
+    if (touchShield) touchShield.hidden = true;
+    if (lockScrollBtn) lockScrollBtn.hidden = false;
+  }
+
+  function lockOrbit() {
+    stageFrameWrap?.classList.remove('is-orbit-unlocked');
+    if (touchShield) touchShield.hidden = false;
+    if (lockScrollBtn) lockScrollBtn.hidden = true;
+  }
+
+  orbitUnlockBtn?.addEventListener('click', unlockOrbit);
+  lockScrollBtn?.addEventListener('click', lockOrbit);
+
+  function syncViewAllButton() {
+    if (!viewAllBtn) return;
+    const expanded = gridEl.classList.contains('is-grid-expanded');
+    viewAllBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    viewAllBtn.textContent = expanded ? `COMPACT RAIL [${visibleCount}]` : `VIEW ALL [${visibleCount}]`;
+  }
+
+  function syncRailCounter() {
+    if (!railCounterEl) return;
+    const { current, total } = computeRailCounter(gridEl, '.model-card');
+    if (total === 0) {
+      railCounterEl.textContent = '00/00';
+      return;
+    }
+    railCounterEl.textContent = `${pad2(current)}/${pad2(total)}`;
+  }
+
+  function unmountAllInlinePlayers(exceptMediaEl = null) {
+    gridEl.querySelectorAll('.model-card__media').forEach((mediaEl) => {
+      if (mediaEl === exceptMediaEl) return;
+      const iframe = mediaEl.querySelector('iframe');
+      if (iframe) {
+        iframe.remove();
+        const card = mediaEl.closest('.model-card');
+        const inlineBtn = card?.querySelector('button[data-action="mount-inline"]');
+        if (inlineBtn) inlineBtn.textContent = 'INLINE 3D ▶';
+      }
+    });
+  }
+
   function updateStageDisplay(model, autostart = 1) {
     currentModel = model;
-    stageTitleEl.textContent = `${model.code} // ${model.title}`;
-    stageMetaEl.textContent = `${model.faces} FACES • ${model.verts} VERTICES • ${model.tags.join(' / ')}`;
-    stageExternalLink.href = model.sketchfabUrl;
+    if (stageTitleEl) stageTitleEl.textContent = `${model.code} // ${model.title}`;
+    if (stageMetaEl) {
+      stageMetaEl.textContent = `${model.faces} FACES • ${model.verts} VERTICES • ${model.tags.join(' / ')}`;
+    }
+    if (stageExternalLink) stageExternalLink.href = model.sketchfabUrl;
     stageLoaderEl?.classList.remove('is-loaded');
     stageIframe.src = buildEmbedUrl(model.uid, autostart);
 
@@ -56,6 +146,7 @@ export function initSketchfabLab() {
       filter === 'all'
         ? SKETCHFAB_MODELS
         : SKETCHFAB_MODELS.filter((m) => m.category === filter);
+    visibleCount = list.length;
 
     gridEl.innerHTML = list
       .map((model, idx) => {
@@ -105,16 +196,58 @@ export function initSketchfabLab() {
         `;
       })
       .join('');
+
+    gridEl.scrollLeft = 0;
+    syncViewAllButton();
+    syncRailCounter();
+    window.dispatchEvent(new Event('scroll'));
   }
 
-  // Filter buttons
-  filterTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      if (tab.dataset.skfFilter === currentFilter) return;
-      filterTabs.forEach((t) => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-      renderGrid(tab.dataset.skfFilter, true);
+  function activateFilterTab(targetTab, focusTab = false) {
+    if (!targetTab) return;
+    const nextFilter = targetTab.dataset.skfFilter || 'all';
+    filterTabs.forEach((t) => {
+      const active = t === targetTab;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.setAttribute('tabindex', active ? '0' : '-1');
     });
+    if (focusTab) {
+      targetTab.focus();
+    }
+    if (nextFilter !== currentFilter) {
+      renderGrid(nextFilter, true);
+    }
+  }
+
+  // Filter buttons + ARIA Tablist keyboard navigation
+  filterTabs.forEach((tab) => {
+    tab.addEventListener('click', () => activateFilterTab(tab, false));
+  });
+
+  filterBar?.addEventListener('keydown', (e) => {
+    const idx = filterTabs.indexOf(document.activeElement);
+    if (idx === -1) return;
+    let nextIdx = -1;
+    if (e.key === 'ArrowRight') nextIdx = (idx + 1) % filterTabs.length;
+    else if (e.key === 'ArrowLeft') nextIdx = (idx - 1 + filterTabs.length) % filterTabs.length;
+    else if (e.key === 'Home') nextIdx = 0;
+    else if (e.key === 'End') nextIdx = filterTabs.length - 1;
+    if (nextIdx !== -1) {
+      e.preventDefault();
+      activateFilterTab(filterTabs[nextIdx], true);
+    }
+  });
+
+  // Rail scroll listener + View All toggle
+  gridEl.addEventListener('scroll', syncRailCounter, { passive: true });
+  window.addEventListener('resize', syncRailCounter, { passive: true });
+
+  viewAllBtn?.addEventListener('click', () => {
+    gridEl.classList.toggle('is-grid-expanded');
+    syncViewAllButton();
+    syncRailCounter();
+    window.dispatchEvent(new Event('scroll'));
   });
 
   // Card actions delegation
@@ -127,7 +260,9 @@ export function initSketchfabLab() {
 
     if (btn.dataset.action === 'load-stage') {
       updateStageDisplay(model, 1);
-      document.getElementById('stage-deck-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document
+        .getElementById('stage-deck-anchor')
+        ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
     } else if (btn.dataset.action === 'mount-inline') {
       const mediaBox = document.getElementById(`card-media-${model.uid}`);
       if (!mediaBox) return;
@@ -136,6 +271,7 @@ export function initSketchfabLab() {
         existingIframe.remove();
         btn.textContent = 'INLINE 3D ▶';
       } else {
+        unmountAllInlinePlayers(mediaBox);
         const iframe = document.createElement('iframe');
         iframe.src = buildEmbedUrl(model.uid, 1);
         iframe.title = `${model.title} Inline 3D Player`;
@@ -154,10 +290,12 @@ export function initSketchfabLab() {
 
   function openModal({ title, meta, embedSrc, externalHref, externalText }) {
     if (!modalBackdrop || !modalBody) return;
-    modalTitle.textContent = title;
-    modalMeta.textContent = meta;
-    modalExtLink.href = externalHref;
-    modalExtLink.textContent = externalText || 'OPEN SOURCE ↗';
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalMeta) modalMeta.textContent = meta;
+    if (modalExtLink) {
+      modalExtLink.href = externalHref;
+      modalExtLink.textContent = externalText || 'OPEN SOURCE ↗';
+    }
     modalBody.innerHTML = `
       <iframe
         src="${embedSrc}"
@@ -198,6 +336,7 @@ export function initSketchfabLab() {
   });
 
   // Initial mount (autostart=0 so initial page load stays featherlight & non-intrusive)
+  lockOrbit();
   renderGrid('all', false);
   updateStageDisplay(SKETCHFAB_MODELS[0], 0);
 
@@ -205,8 +344,14 @@ export function initSketchfabLab() {
     selectSketchfabByUid(uid) {
       const m = SKETCHFAB_MODELS.find((item) => item.uid === uid);
       if (!m) return;
+      if (currentFilter !== 'all' && m.category !== currentFilter) {
+        const allTab = document.getElementById('filter-all');
+        if (allTab) activateFilterTab(allTab, false);
+      }
       updateStageDisplay(m, 1);
-      document.getElementById('stage-deck-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document
+        .getElementById('stage-deck-anchor')
+        ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
     },
     openYoutubeShowreel(videoId) {
       openModal({

@@ -17,6 +17,12 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+@media (max-width: 760px) {
+  html {
+    scroll-padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-canvas);
@@ -32,7 +38,7 @@ body {
   transition: background-color 160ms ease, color 160ms ease;
 }
 
-/* Tactile Archival Paper / Raw Surface Grain */
+/* Tactile Archival Paper / Raw Surface Grain (Desktop fine-pointer only to protect mobile GPU compositing) */
 body::before {
   content: "";
   position: fixed;
@@ -43,9 +49,20 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
+@media (max-width: 900px), (pointer: coarse) {
+  body::before {
+    display: none;
+  }
+}
+
 ::selection {
   background-color: var(--accent-yellow);
   color: #0D0D0D;
+}
+
+::placeholder {
+  color: var(--ink-muted);
+  opacity: 1;
 }
 
 /* Custom Rounded Scrollbar */
@@ -94,13 +111,17 @@ button {
   border: none;
 }
 
-/* Skip Link */
+/* Skip Link (Compositor-Only Transform) */
 .skip-link {
   position: fixed;
-  top: -100px;
+  top: 16px;
   left: 16px;
   z-index: 10000;
-  padding: 10px 18px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
   background: var(--accent-yellow);
   color: #0D0D0D;
   font-family: var(--font-mono);
@@ -109,10 +130,11 @@ button {
   border: 2.5px solid #0D0D0D;
   border-radius: var(--radius-pill);
   box-shadow: 4px 4px 0px #0D0D0D;
-  transition: top 120ms ease;
+  transform: translateY(-160%);
+  transition: transform var(--dur-fast) var(--ease-out-quart);
 }
 .skip-link:focus {
-  top: 14px;
+  transform: translateY(0);
 }
 
 /* Layout Containers */
@@ -131,6 +153,7 @@ button {
 
 .font-mono {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .sr-only {
@@ -165,8 +188,7 @@ a, button, summary, [role="button"] {
     scroll-behavior: auto !important;
   }
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

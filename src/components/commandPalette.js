@@ -1,13 +1,19 @@
 /* ==========================================================================
-   MECHANICAL COMMAND PALETTE (Cmd+K / Ctrl+K)
+   MECHANICAL COMMAND PALETTE (Cmd+K / Ctrl+K) + MOBILE AUTO-REVEAL HANDOFF
    ========================================================================== */
 
 import { PROFILE } from '../data/profile.js';
 import { SKETCHFAB_MODELS } from '../data/models.js';
 import { FLAGSHIP_WORKS } from '../data/projects.js';
-import { openAnimatedDialog, closeAnimatedDialog } from './microInteractions.js';
+import { openAnimatedDialog, closeAnimatedDialog, prefersReducedMotion } from './microInteractions.js';
 
-export function initCommandPalette({ sketchfabLab, toggleTheme, copyEmail }) {
+export function initCommandPalette({
+  sketchfabLab,
+  toggleTheme,
+  copyEmail,
+  openBriefDrawer,
+  disclosureApi,
+}) {
   const backdrop = document.getElementById('cmdk-backdrop');
   const input = document.getElementById('cmdk-input');
   const resultsEl = document.getElementById('cmdk-results');
@@ -15,6 +21,10 @@ export function initCommandPalette({ sketchfabLab, toggleTheme, copyEmail }) {
   const closeBtn = document.getElementById('cmdk-close');
 
   if (!backdrop || !input || !resultsEl) return;
+
+  function scrollBehavior() {
+    return prefersReducedMotion() ? 'auto' : 'smooth';
+  }
 
   const commands = [
     {
@@ -45,9 +55,10 @@ export function initCommandPalette({ sketchfabLab, toggleTheme, copyEmail }) {
     {
       title: 'Jump to Availability & Project Brief (#dispatch)',
       cat: 'DISPATCH',
-      keywords: 'freelance hire contact lead xr role brief whatsapp',
+      keywords: 'freelance hire contact lead xr role project brief compose whatsapp',
       run: () => {
-        document.getElementById('dispatch')?.scrollIntoView({ behavior: 'smooth' });
+        openBriefDrawer?.(false);
+        document.getElementById('dispatch')?.scrollIntoView({ behavior: scrollBehavior() });
       },
     },
     {
@@ -65,10 +76,52 @@ export function initCommandPalette({ sketchfabLab, toggleTheme, copyEmail }) {
     ...FLAGSHIP_WORKS.map((w) => ({
       title: `Open Flagship Work: ${w.title} (${w.org})`,
       cat: 'PROJECT',
-      keywords: `${w.title} ${w.org} ${w.stack.join(' ')}`,
+      keywords: `${w.code} ${w.title} ${w.org} ${w.stack.join(' ')}`,
       run: () => {
         const card = document.getElementById(`work-${w.id}`);
-        card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const grid = document.getElementById('flagship-works-grid');
+        if (card && grid && grid.scrollWidth > grid.clientWidth + 4) {
+          grid.scrollTo({
+            left: Math.max(0, card.offsetLeft - grid.offsetLeft),
+            behavior: scrollBehavior(),
+          });
+        }
+        card?.scrollIntoView({ behavior: scrollBehavior(), block: 'nearest' });
+      },
+    })),
+    ...PROFILE.arsenal.map((col, idx) => ({
+      title: `Technical Arsenal: ${col.category} (${col.items[0]})`,
+      cat: 'ARSENAL',
+      keywords: `arsenal skills code engines dmx scan ${col.category} ${col.items.join(' ')}`,
+      run: () => {
+        disclosureApi?.activateArsenalTab(idx);
+        document.getElementById('arsenal')?.scrollIntoView({ behavior: scrollBehavior() });
+      },
+    })),
+    ...PROFILE.experience.map((job, idx) => ({
+      title: `Career Role: ${job.role} — ${job.org}`,
+      cat: 'CAREER',
+      keywords: `career chronology timeline experience cv ${job.role} ${job.org} ${job.period} ${job.location}`,
+      run: () => {
+        disclosureApi?.expandCareerRole(idx);
+        const item = document.querySelectorAll('#career-ledger .ledger-item')[idx];
+        (item || document.getElementById('chronology'))?.scrollIntoView({
+          behavior: scrollBehavior(),
+          block: 'center',
+        });
+      },
+    })),
+    ...PROFILE.pillars.map((p, idx) => ({
+      title: `Engineering Pillar ${p.id}: ${p.title}`,
+      cat: 'PILLAR',
+      keywords: `pillars architecture ${p.id} ${p.tag} ${p.title} ${p.stack}`,
+      run: () => {
+        disclosureApi?.expandPillar(idx);
+        const box = document.querySelectorAll('#pillars .pillar-box')[idx];
+        (box || document.getElementById('pillars'))?.scrollIntoView({
+          behavior: scrollBehavior(),
+          block: 'center',
+        });
       },
     })),
     ...PROFILE.socials.map((s) => ({
