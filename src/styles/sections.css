@@ -36,8 +36,8 @@
 @media (hover: hover) and (pointer: fine) {
   .brand-pill:hover {
     background: var(--bg-surface);
-    transform: translate(-2px, -2px);
-    box-shadow: 2px 2px 0px var(--shadow-color);
+    transform: translate(-1.5px, -2px);
+    box-shadow: 2.5px 3.5px 0px var(--shadow-color);
   }
 }
 
@@ -75,47 +75,62 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: clamp(12px, 2.4vw, 32px);
+  gap: clamp(12px, 1.8vw, 24px);
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 2.2vw, 32px);
+  gap: clamp(4px, 0.6vw, 10px);
 }
 
 .site-nav__link {
   position: relative;
   min-height: 44px;
+  min-width: 44px;
   display: inline-flex;
   align-items: center;
-  padding-inline: 4px;
-  font-family: var(--font-sans);
+  justify-content: center;
+  padding: 8px 18px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
+  font-family: var(--font-display);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
   color: var(--ink);
   white-space: nowrap;
-  transition: color var(--dur-fast) var(--ease-standard);
-}
-
-.site-nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 6px;
-  height: 2px;
-  background: var(--accent-orange);
-  border-radius: 2px;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--dur-fast) var(--ease-out-quart);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-out-quart),
+              transform var(--dur-fast) var(--ease-out-quart),
+              color var(--dur-fast) var(--ease-standard);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .site-nav__link:hover::after {
-    transform: scaleX(1);
+  .site-nav__link:hover {
+    background: var(--bg-surface);
+    border-color: var(--border-ink);
+    box-shadow: 2.5px 3.5px 0px var(--shadow-color);
+    transform: translate(-1.5px, -2px);
   }
+}
+
+.site-nav__link:focus-visible {
+  background: var(--bg-surface);
+  border-color: var(--border-ink);
+  box-shadow: 2.5px 3.5px 0px var(--shadow-color);
+}
+
+.site-nav__link:active {
+  background: var(--bg-surface);
+  border-color: var(--border-ink);
+  box-shadow: 0px 0px 0px var(--shadow-color);
+  transform: translate(1px, 1px) scale(0.98);
+  transition-duration: var(--dur-instant);
 }
 
 .theme-dot-toggle {
@@ -125,31 +140,54 @@
   min-height: 44px;
   min-width: 44px;
   gap: 8px;
-  padding: 8px 12px;
-  border: 1.5px solid var(--border-ink);
+  padding: 8px 14px;
+  border: 1.5px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--bg-surface);
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--ink);
   white-space: nowrap;
-  transition: transform var(--dur-fast) var(--ease-out-quart),
-              opacity var(--dur-fast) var(--ease-standard);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-out-quart),
+              transform var(--dur-fast) var(--ease-out-quart);
+}
+
+@media (max-width: 900px) {
+  .theme-dot-toggle {
+    border-color: var(--border-ink);
+    background: var(--bg-surface);
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
   .theme-dot-toggle:hover {
-    transform: translateY(-1px);
+    background: var(--bg-surface);
+    border-color: var(--border-ink);
+    transform: translate(-1.5px, -2px);
+    box-shadow: 2.5px 3.5px 0px var(--shadow-color);
   }
   .theme-dot-toggle:hover .theme-dot-toggle__core {
     transform: scale(1.15);
   }
 }
 
+.theme-dot-toggle:focus-visible {
+  background: var(--bg-surface);
+  border-color: var(--border-ink);
+  box-shadow: 2.5px 3.5px 0px var(--shadow-color);
+}
+
 .theme-dot-toggle:active {
-  transform: scale(0.96);
+  background: var(--bg-surface);
+  border-color: var(--border-ink);
+  transform: translate(1px, 1px) scale(0.97);
+  box-shadow: 0px 0px 0px var(--shadow-color);
+  transition-duration: var(--dur-instant);
 }
 
 .theme-dot-toggle__ring {
@@ -158,6 +196,7 @@
   border-radius: 50%;
   border: 1.5px solid var(--border-ink);
   background: var(--bg-surface);
+  box-shadow: 1px 1.5px 0px var(--shadow-color);
   display: inline-flex;
   align-items: center;
   justify-content: center;
